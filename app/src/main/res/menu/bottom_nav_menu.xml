@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_transactions"
+        android:icon="@drawable/ic_transactions"
+        android:title="明细" />
+
+    <item
+        android:id="@+id/navigation_report"
+        android:icon="@drawable/ic_report"
+        android:title="图表" />
+    <item
+        android:id="@+id/navigation_planning"
+        android:icon="@drawable/ic_planning"
+        android:title="提醒" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="设置" />
+
+</menu>

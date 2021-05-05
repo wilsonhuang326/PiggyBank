@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_transactions"
         android:icon="@drawable/ic_transactions"
-        android:title="明细1" />
+        android:title="明细" />
 
     <item
         android:id="@+id/navigation_report"

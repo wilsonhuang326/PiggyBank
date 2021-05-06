@@ -1,4 +1,7 @@
+/*
 package com.example.piggybank.ui.settings;
+
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,9 +14,12 @@ public class SettingsViewModel extends ViewModel {
     public SettingsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is settings fragment");
+
+
     }
 
     public LiveData<String> getText() {
         return mText;
     }
 }
+*/

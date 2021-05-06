@@ -31,5 +31,10 @@
         <!-- Customize your theme here. -->
 
     </style>
+   <style name="settingsScreen" parent="Theme.AppCompat.DayNight">
+       <item name="colorPrimary">@color/purple_500</item>
+       <item name="colorPrimaryVariant">@color/purple_700</item>
+       <item name="colorOnPrimary">@color/white</item>
+       </style>
 
 </resources>

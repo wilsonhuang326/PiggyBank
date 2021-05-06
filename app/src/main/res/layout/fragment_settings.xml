@@ -9,17 +9,36 @@
 
 
     <Button
-        android:id="@+id/settings_button"
+        android:id="@+id/category_settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="112dp"
 
         android:drawableTop="@drawable/ic_settings"
-        android:text="设置"
+        android:text="分类管理"
 android:textColor="@android:color/black"
         android:textSize="8dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="112dp"
+        android:drawableTop="@drawable/ic_settings"
+
+
+
+
+        android:text="设置"
+        android:textSize="8dp"
+        android:textColor="@android:color/black"
+
+        app:layout_constraintStart_toEndOf="@+id/category_settings_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -29,33 +48,14 @@ android:textColor="@android:color/black"
 
         android:layout_marginLeft="32dp"
         android:layout_marginTop="112dp"
+
         android:drawableTop="@drawable/ic_settings"
-
-
-
 
         android:text="关于我们"
         android:textSize="8dp"
         android:textColor="@android:color/black"
 
         app:layout_constraintStart_toEndOf="@+id/settings_button"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/feedback_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="112dp"
-
-        android:drawableTop="@drawable/ic_settings"
-
-        android:text="问题"
-        android:textSize="8dp"
-        android:textColor="@android:color/black"
-
-        app:layout_constraintStart_toEndOf="@+id/aboutUs_button"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

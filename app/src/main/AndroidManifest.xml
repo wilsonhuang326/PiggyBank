@@ -8,20 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        >
+        android:theme="@style/Theme.PiggyBank">
+        <activity android:name=".CategoryManagement"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:theme="@style/settingsScreen" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.PiggyBank"
-            >
-
-        </activity>
-        <activity android:name=".SplashScreen"
-            android:theme="@style/Theme.PiggyBank.NoActionBar"
-            >
-
+            android:theme="@style/Theme.PiggyBank" />
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.PiggyBank.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

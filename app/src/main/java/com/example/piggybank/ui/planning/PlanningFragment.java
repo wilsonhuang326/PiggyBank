@@ -15,21 +15,17 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.piggybank.R;
 
 public class PlanningFragment extends Fragment {
-    private PlanningViewModel planningViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        planningViewModel =
-                new ViewModelProvider(this).get(PlanningViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final TextView textView = root.findViewById(R.id.text_settings);
-        planningViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+
+        View root = inflater.inflate(R.layout.fragment_planning, container, false);
+        final TextView textView = root.findViewById(R.id.text_planning);
+
+
         return root;
     }
 }

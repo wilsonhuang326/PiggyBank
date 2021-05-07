@@ -17,21 +17,13 @@ import com.example.piggybank.R;
 
 public class TransactionsFragment extends Fragment {
 
-    private TransactionsViewModel transactionsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        transactionsViewModel =
-                new ViewModelProvider(this).get(TransactionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_transactions, container, false);
         final TextView textView = root.findViewById(R.id.text_transactions);
-        transactionsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }

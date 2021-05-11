@@ -77,8 +77,8 @@ public class CategoryManagement extends AppCompatActivity {
     private void createCategory() {
         getIconPath();
         monitoringRadioGrop();
-        getCategoryName();
-        if (getCategoryName().isEmpty()) {
+        String s=getCategoryName();
+        if (s.isEmpty()) {
             Log.d("error:", "getCategoryName");
         } else {
             Log.d("Created:", "haha");

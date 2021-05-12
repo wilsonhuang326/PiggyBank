@@ -1,119 +1,53 @@
 package com.example.piggybank;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-
-import java.io.File;
+import android.widget.ListView;
 
 public class CategoryManagement extends AppCompatActivity {
-    private GridView mGridView;
-    private RadioGroup mRadioGroup;
-    private EditText mEditText;
-    private int selectedPosition;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_management);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mRadioGroup = (RadioGroup) findViewById(R.id.input_category_type);
-        mEditText = (EditText) findViewById(R.id.input_category);
-        mGridView = (GridView) findViewById(R.id.category_list);
-
-
+        readAllFromCategoryTable();
+        mListView=(ListView)findViewById(R.id.category_list);
         CategoryAdapter adapter = new CategoryAdapter(this);
-        mGridView.setAdapter(adapter);
-
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("before", String.valueOf(adapter.selectedPosition));
-
-                adapter.setSelectedPosition(position);
-                selectedPosition = position;
-
-                Log.e("after", String.valueOf(adapter.selectedPosition));
-
+                System.out.println("mListView");
 
             }
         });
 
-
     }
+    private void readAllFromCategoryTable(){
+        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(this, null, null, 1);
+        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
+        Cursor cursor =dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
+                new String[]{CategorySQLiteHelper.FIELD_ID, CategorySQLiteHelper.FIELD_NAME, CategorySQLiteHelper.FIELD_ICON, CategorySQLiteHelper.FIELD_TYPE},
+                null,null,null,null,null);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ID));
+            String name = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_NAME));
+            String icon = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ICON));
+            String type = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_TYPE));
 
-        getMenuInflater().inflate(R.menu.category_management_actionbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case R.id.action_done:
-                createCategory();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void createCategory() {
-        getIconPath();
-        monitoringRadioGrop();
-        String s=getCategoryName();
-        if (s.isEmpty()) {
-            Log.d("error:", "getCategoryName");
-        } else {
-            Log.d("Created:", "haha");
-
+            Log.i("Mainactivity","result: id="  + id +" name: " + name +"  icon:" + icon+" type:"+type);
         }
 
-
-    }
-
-    private void getIconPath() {
-        Log.d("selecteditemposition:", String.valueOf(selectedPosition));
-        Log.d("selecteditem:", String.valueOf(mGridView.getAdapter().getItem(selectedPosition)));
-    }
-
-    private void monitoringRadioGrop() {
-
-        switch (mRadioGroup.getCheckedRadioButtonId()) {
-            case R.id.input_outcome:
-
-                Log.d("category type:", "outcome");
-                break;
-            case R.id.input_income:
-
-                Log.d("category type:", "income");
-                break;
-
-            default:
-                Log.d("category type:", "error");
-                break;
-        }
-
-    }
-
-    private String getCategoryName() {
-        Log.d("category name:", String.valueOf(mEditText.getText()));
-        return String.valueOf(mEditText.getText());
+        cursor.close();
     }
 }

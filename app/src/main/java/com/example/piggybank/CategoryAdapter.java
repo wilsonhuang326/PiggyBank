@@ -1,69 +1,96 @@
 package com.example.piggybank;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CategoryAdapter extends BaseAdapter {
     private Context mContext;
-    //public int[] imageArray={     R.drawable.ic_category_basketball,R.drawable.ic_category_briefcase,R.drawable.ic_category_building,R.drawable.ic_category_gas_pump,R.drawable.ic_category_hotel};
-    private ArrayList<String> imageArray;
-private  String folderPath;
+    private ArrayList<Category> categoryArray;
+    private  String folderPath="Category";
+
+    public CategoryAdapter() {
+    }
 
     public CategoryAdapter(Context mContext) {
         this.mContext = mContext;
-
-        ArrayList<String> pathList = new ArrayList<>();
-         folderPath="Category";
-        String[] mImageArray=null;
-        try {
-            mImageArray = mContext.getAssets().list(folderPath);
-            for (String name : mImageArray) {
-                pathList.add(folderPath + File.separator + name);
-                //Log.e("pathList item", folderPath + File.separator + name);
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         imageArray = new ArrayList<String>(Arrays.asList(mImageArray));
-
-       //System.out.println(imageArray.size());
+        categoryArray=new ArrayList<Category>();
+        Category c=new Category("name", "iconPath", "type");
+        categoryArray.add(c);
+        Category cc=new Category("name1", "iconPath1", "type1");
+        categoryArray.add(cc);
     }
 
     @Override
     public int getCount() {
-        return imageArray.size();
+        return categoryArray.size();
     }
+
 
     @Override
     public Object getItem(int position) {
-        return imageArray.get(position);
+        return categoryArray.get(position);
     }
+
 
     @Override
     public long getItemId(int position) {
         return 0;
     }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
+
+        LinearLayout mLinearLayout = (LinearLayout) convertView.findViewById(R.id.category_background);
+
+        ImageView icon=(ImageView) convertView.findViewById(R.id.category_image);
+        TextView type = (TextView) convertView.findViewById(R.id.category_type);
+        TextView  name= (TextView) convertView.findViewById(R.id.category_name);
+        ImageButton edit = (ImageButton) convertView.findViewById(R.id.category_edit_button);
+        ImageButton delete = (ImageButton) convertView.findViewById(R.id.category_delete_button);
+        type.setText("收入");
+        name.setText("出行");
+        type.setText("income");
+        icon.setImageBitmap(getBitmapFromAsset("ic_category_basketball.png") );
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("edit");
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("delete");
+            }
+        });
+        return convertView;
+    }
     private Bitmap getBitmapFromAsset(String strName)
     {
+
         AssetManager assetManager = mContext.getAssets();
         InputStream istr = null;
         try {
@@ -74,44 +101,4 @@ private  String folderPath;
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         return bitmap;
     }
-
-
-
-    public int selectedPosition;
-    public void setSelectedPosition(int position)
-    {
-        this.selectedPosition=position;
-        notifyDataSetChanged();
-
-    }
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView=new ImageView(mContext);
-
-
-        imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)) );
-
-       // imageView.setImageResource(imageArray[position]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridLayout.LayoutParams());
-
-
-
-        imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)) );
-        if(position==selectedPosition)
-        {
-            imageView.setBackgroundColor(Color.RED);
-        }
-        else
-        {
-            imageView.setBackgroundColor(Color.WHITE);
-
-        }
-
-
-
-        return imageView;
-    }
-
-
 }

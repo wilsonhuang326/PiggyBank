@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -35,10 +38,10 @@ public class CategoryAdapter extends BaseAdapter {
     public CategoryAdapter(Context mContext) {
         this.mContext = mContext;
         categoryArray=new ArrayList<Category>();
-        Category c=new Category("name", "iconPath", "type");
-        categoryArray.add(c);
-        Category cc=new Category("name1", "iconPath1", "type1");
-        categoryArray.add(cc);
+
+
+
+        readAllFromCategoryTable();
     }
 
     @Override
@@ -69,9 +72,13 @@ public class CategoryAdapter extends BaseAdapter {
         TextView  name= (TextView) convertView.findViewById(R.id.category_name);
         ImageButton edit = (ImageButton) convertView.findViewById(R.id.category_edit_button);
         ImageButton delete = (ImageButton) convertView.findViewById(R.id.category_delete_button);
+      /*
         type.setText("收入");
         name.setText("出行");
-        type.setText("income");
+
+       */
+        type.setText(categoryArray.get(position).getType());
+        name.setText(categoryArray.get(position).getName());
         icon.setImageBitmap(getBitmapFromAsset("ic_category_basketball.png") );
 
         edit.setOnClickListener(new View.OnClickListener() {
@@ -100,5 +107,24 @@ public class CategoryAdapter extends BaseAdapter {
         }
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         return bitmap;
+    }
+    private void readAllFromCategoryTable(){
+        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(mContext, null, null, 1);
+        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
+        Cursor cursor =dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
+                new String[]{CategorySQLiteHelper.FIELD_ID, CategorySQLiteHelper.FIELD_NAME, CategorySQLiteHelper.FIELD_ICON, CategorySQLiteHelper.FIELD_TYPE},
+                null,null,null,null,null);
+
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ID));
+            String name = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_NAME));
+            String icon = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ICON));
+            String type = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_TYPE));
+            Category c=new Category(name, icon, type);
+            categoryArray.add(c);
+            Log.i("Mainactivity","result: id="  + id +" name: " + name +"  icon:" + icon+" type:"+type);
+        }
+
+        cursor.close();
     }
 }

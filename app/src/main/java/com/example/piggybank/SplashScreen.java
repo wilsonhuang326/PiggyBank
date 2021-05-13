@@ -72,7 +72,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
-        //dbWriter.execSQL("insert into " + MySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name', 'icon', 'type')");
+        dbWriter.execSQL("insert into " + MySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name', 'icon', 'type')");
 
 
         //delete

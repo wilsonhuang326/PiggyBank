@@ -32,7 +32,7 @@ public class CategorySQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(C_TSQL);
-            db.execSQL("insert into " + CategorySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name1', 'icon4', 'type1')");
+            db.execSQL("insert into " + CategorySQLiteHelper.TABLE_NAME + " ( name, icon, type) value                                   s ('name1', 'icon4', 'type1')");
             db.execSQL("insert into " + CategorySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name2', 'icon3', 'type2')");
             db.execSQL("insert into " + CategorySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name3', 'icon2', 'type3')");
             db.execSQL("insert into " + CategorySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name4', 'icon1', 'type4')");

@@ -11,15 +11,15 @@
     <ListView
         android:id="@+id/category_list"
         android:layout_width="match_parent"
-        android:layout_height="466dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="8"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="310dp"
-        android:layout_height="173dp"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="552dp">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/go_to_add_category"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="创建新分类"
+        android:layout_weight="1"/>
 </LinearLayout>

@@ -3,13 +3,16 @@ package com.example.piggybank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -138,5 +141,43 @@ public class AddCategory extends AppCompatActivity {
         dbWriter.close();
 
     }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            View view = this.getCurrentFocus();
+            if (isShouldHideInput(view, motionEvent)) {
+                closeKeyboard(view);
+
+            }
+        }
+        return super.dispatchTouchEvent(motionEvent);
+    }
+
+    private void closeKeyboard(View view) {
+
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
+    }
+
+
+    private boolean isShouldHideInput(View view, MotionEvent motionEvent) {
+        if (view != null && (view instanceof EditText)) {
+            int[] l = {0, 0};
+            view.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + view.getHeight(), right = left
+                    + view.getWidth();
+            if (motionEvent.getX() > left && motionEvent.getX() < right
+                    && motionEvent.getY() > top && motionEvent.getY() < bottom) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
 }

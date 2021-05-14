@@ -12,6 +12,7 @@
         <activity android:name=".CategoryManagement"
             android:label="分类管理"/>
         <activity android:name=".AddCategory" />
+        <activity android:name=".addTrans"></activity>
         <activity
             android:name=".SettingsActivity"
             android:label="Settings"

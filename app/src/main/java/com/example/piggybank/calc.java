@@ -59,7 +59,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         if(s1 != null && s2 != null && op != null){
             if(!s1.equals("")&&!s2.equals("")){
                 btnPlus.setOnClickListener(new click());
-                System.out.println("herereeeeeee");
+                //System.out.println("herereeeeeee");
             }
 
         }else{
@@ -140,6 +140,9 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
     String s1;
     String op;
     String s2;
+
+
+
     private void getResult(){
 
 

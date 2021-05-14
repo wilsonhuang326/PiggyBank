@@ -20,9 +20,21 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.PiggyBank.NoAction">
-        <item name="android:windowNoTitle">true</item>
+    <style name="Theme.Button" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#DFDFDF</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
 
     </style>
+   <style name="settingsScreen" parent="Theme.AppCompat.DayNight">
+       <item name="colorPrimary">@color/purple_500</item>
+       <item name="colorPrimaryVariant">@color/purple_700</item>
+       <item name="colorOnPrimary">@color/white</item>
+       </style>
 
 </resources>

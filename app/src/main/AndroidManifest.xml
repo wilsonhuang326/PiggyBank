@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PiggyBank">
         <activity android:name=".addTrans"></activity>
+        <activity android:name=".calc"></activity>
         <activity android:name=".CategoryManagement"
             android:label="分类管理"/>
         <activity android:name=".AddCategory" />

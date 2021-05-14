@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.piggybank.AddCategory;
 import com.example.piggybank.CategoryManagement;
 import com.example.piggybank.R;
 import com.example.piggybank.SettingsActivity;
@@ -46,7 +46,9 @@ public class SettingsFragment extends Fragment {
         category_settings_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Intent intent = new Intent(getActivity().getApplicationContext(), AddCategory.class);
                 Intent intent = new Intent(getActivity().getApplicationContext(), CategoryManagement.class);
+
                 startActivity(intent);
             }
         });

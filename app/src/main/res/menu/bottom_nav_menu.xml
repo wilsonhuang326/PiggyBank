@@ -9,7 +9,8 @@
     <item
         android:id="@+id/navigation_report"
         android:icon="@drawable/ic_report"
-        android:title="图表" />
+        android:title="图表"
+        />
     <item
         android:id="@+id/navigation_planning"
         android:icon="@drawable/ic_planning"

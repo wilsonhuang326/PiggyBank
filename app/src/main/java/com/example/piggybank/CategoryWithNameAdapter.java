@@ -1,7 +1,5 @@
 package com.example.piggybank;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -10,13 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,18 +21,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
-public class CategoryAdapter extends BaseAdapter {
+public class CategoryWithNameAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Category> categoryArray;
-    private  String folderPath="Category";
-
-    public CategoryAdapter() {
+    private String folderPath = "Category";
+    public int selectedPosition;
+    public CategoryWithNameAdapter() {
     }
 
-    public CategoryAdapter(Context mContext) {
-        this.mContext = mContext;
+    public CategoryWithNameAdapter(Context mContext) {
+        this.mContext=mContext;
         categoryArray=new ArrayList<Category>();
 
         readAllFromCategoryTable();
@@ -48,12 +42,10 @@ public class CategoryAdapter extends BaseAdapter {
         return categoryArray.size();
     }
 
-
     @Override
     public Object getItem(int position) {
         return categoryArray.get(position);
     }
-
 
     @Override
     public long getItemId(int position) {
@@ -62,49 +54,40 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
+        convertView = View.inflate(mContext, R.layout.item_category, null);
 
-        LinearLayout mLinearLayout = (LinearLayout) convertView.findViewById(R.id.category_background);
+        LinearLayout mRelativeLayout = (LinearLayout) convertView.findViewById(R.id.item_category_layout);
 
-        ImageView icon=(ImageView) convertView.findViewById(R.id.category_image);
-        TextView type = (TextView) convertView.findViewById(R.id.category_type);
-        TextView  name= (TextView) convertView.findViewById(R.id.category_name);
-        ImageButton edit = (ImageButton) convertView.findViewById(R.id.category_edit_button);
-        ImageButton delete = (ImageButton) convertView.findViewById(R.id.category_delete_button);
-      /*
-        type.setText("收入");
-        name.setText("出行");
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.item_category_image);
 
-       */
-        type.setText(categoryArray.get(position).getType());
-        name.setText(categoryArray.get(position).getName());
-        icon.setImageBitmap(getBitmapFromAsset(categoryArray.get(position).getIconPath()) );
+        TextView textView=(TextView)convertView.findViewById(R.id.item_category_text);
+        //imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)) );
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("edit");
+        // imageView.setImageResource(imageArray[position]);
+        // imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        //  imageView.setLayoutParams(new GridLayout.LayoutParams());
 
-            }
-        });
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("delete");
-              deleteFromDB(position);
 
-            }
-        });
-        return convertView;
-    }
-
-    private void deleteFromDB(int position){
-        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(mContext, null, null, 1);
-        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        System.out.println("id"+categoryArray.get(position).getId());
-        dbWriter.delete(CategorySQLiteHelper.TABLE_NAME,CategorySQLiteHelper.FIELD_ID+"=?",new String[]{String.valueOf(categoryArray.get(position).getId())});
+        imageView.setImageBitmap(getBitmapFromAsset(categoryArray.get(position).getIconPath()));
         readAllFromCategoryTable();
-        CategoryAdapter.this.notifyDataSetChanged();
+        textView.setText(categoryArray.get(position).getName());
+        if (position == selectedPosition) {
+
+
+            mRelativeLayout.setBackgroundColor(Color.BLUE);
+        } else {
+
+            mRelativeLayout.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+
+        return convertView;
+
+    }
+    public void setSelectedPosition(int position) {
+        this.selectedPosition = position;
+        notifyDataSetChanged();
+
     }
     public Bitmap getBitmapFromAsset(String strName)
     {

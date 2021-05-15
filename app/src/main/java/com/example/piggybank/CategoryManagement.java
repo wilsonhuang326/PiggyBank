@@ -15,9 +15,12 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
+
 public class CategoryManagement extends AppCompatActivity {
     private ListView mListView;
     Button addCategoryActivityButton;
+    CategoryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,18 +29,28 @@ public class CategoryManagement extends AppCompatActivity {
 
 
         mListView=(ListView)findViewById(R.id.category_list);
-        CategoryAdapter adapter = new CategoryAdapter(this);
+        adapter = new CategoryAdapter(this);
         mListView.setAdapter(adapter);
         addCategoryActivityButton=(Button) findViewById(R.id.go_to_add_category);
+
         addCategoryActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddCategory.class);
                 startActivity(intent);
+
             }
         });
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.readAllFromCategoryTable();
+        adapter.notifyDataSetChanged();
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

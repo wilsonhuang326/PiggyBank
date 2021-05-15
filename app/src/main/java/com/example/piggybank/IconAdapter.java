@@ -5,16 +5,11 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,15 +21,15 @@ public class IconAdapter extends BaseAdapter {
     private Context mContext;
     //public int[] imageArray={     R.drawable.ic_category_basketball,R.drawable.ic_category_briefcase,R.drawable.ic_category_building,R.drawable.ic_category_gas_pump,R.drawable.ic_category_hotel};
     private ArrayList<String> imageArray;
-    private  String folderPath="Category";
+    private String folderPath = "Category";
     public int selectedPosition;
 
     public IconAdapter(Context mContext) {
         this.mContext = mContext;
 
         ArrayList<String> pathList = new ArrayList<>();
-        folderPath="Category";
-        String[] mImageArray=null;
+        folderPath = "Category";
+        String[] mImageArray = null;
         try {
             mImageArray = mContext.getAssets().list(folderPath);
             for (String name : mImageArray) {
@@ -65,12 +60,12 @@ public class IconAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-    private Bitmap getBitmapFromAsset(String strName)
-    {
+
+    private Bitmap getBitmapFromAsset(String strName) {
         AssetManager assetManager = mContext.getAssets();
         InputStream istr = null;
         try {
-            istr = assetManager.open(folderPath + File.separator +strName);
+            istr = assetManager.open(folderPath + File.separator + strName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,20 +74,19 @@ public class IconAdapter extends BaseAdapter {
     }
 
 
-
-    public void setSelectedPosition(int position)
-    {
-        this.selectedPosition=position;
+    public void setSelectedPosition(int position) {
+        this.selectedPosition = position;
         notifyDataSetChanged();
 
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = View.inflate(mContext, R.layout.item_category, null);
+        convertView = View.inflate(mContext, R.layout.item_icon, null);
 
-        RelativeLayout mRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.item_category_layout);
+        RelativeLayout mRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.item_icon_layout);
 
-        ImageView imageView=(ImageView) convertView.findViewById(R.id.item_category_button);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.item_icon_button);
 
 
         //imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)) );
@@ -102,19 +96,15 @@ public class IconAdapter extends BaseAdapter {
         //  imageView.setLayoutParams(new GridLayout.LayoutParams());
 
 
-
-        imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)) );
-        if(position==selectedPosition)
-        {
+        imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)));
+        if (position == selectedPosition) {
 
 
-            mRelativeLayout.setBackgroundColor(Color.BLUE);        }
-        else
-        {
+            mRelativeLayout.setBackgroundColor(Color.BLUE);
+        } else {
 
             mRelativeLayout.setBackgroundColor(Color.TRANSPARENT);
         }
-
 
 
         return convertView;

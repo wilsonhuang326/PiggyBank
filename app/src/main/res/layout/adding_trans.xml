@@ -30,12 +30,13 @@
         android:layout_height="0dp"
         android:background="#FFE4E1"
         android:layout_weight="1">
-        <ListView
+        <GridView
+            android:id="@+id/category_list_wName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:numColumns="4"
             android:layout_weight="1">
-        </ListView>
+        </GridView>
     </LinearLayout>
 
 <!--    <LinearLayout-->

@@ -142,7 +142,10 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
                 //text.setText(input + " " + ((Button)v).getText() + " ");
                 break;
             case R.id.comp:
-                money=getResult(input, ((Button) v).getText().toString());
+               money=getResult(input, ((Button) v).getText().toString());
+                if (Double.parseDouble(money)%1!=0){
+                    money =String.valueOf((double)Math.round(Double.parseDouble(money) * 100) / 100);
+                }
                 System.out.println("completed:"+money);
                 //text.setText(input + " " + ((Button)v).getText() + " ");
                 break;

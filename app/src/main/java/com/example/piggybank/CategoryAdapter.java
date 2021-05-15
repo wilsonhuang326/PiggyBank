@@ -65,7 +65,6 @@ public class CategoryAdapter extends BaseAdapter {
         convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
 
         LinearLayout mLinearLayout = (LinearLayout) convertView.findViewById(R.id.category_background);
-
         ImageView icon=(ImageView) convertView.findViewById(R.id.category_image);
         TextView type = (TextView) convertView.findViewById(R.id.category_type);
         TextView  name= (TextView) convertView.findViewById(R.id.category_name);

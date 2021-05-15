@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class addTrans extends AppCompatActivity{
-//
+    //
 //    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,
 //            btnBackward,btnPlus,btnSubtract,btnMultiply,btnDivide,btnComp,btnPoint,btnDate;
 //
@@ -234,48 +234,8 @@ public class addTrans extends AppCompatActivity{
 //            }
 
 
-        }
+    }
 
 
 
 }
-
-
-//    EditText input;
-//
-//    Button chehui;
-//
-//    Button div;
-//
-//    Button mult;
-//
-//    Button add;
-//
-//    Button sub;
-//
-//    Button num1;
-//
-//    Button num2;
-//
-//    Button num3;
-//
-//    Button num4;
-//
-//    Button num5;
-//
-//    Button num6;
-//
-//    Button num7;
-//
-//    Button num8;
-//
-//    Button num9;
-//
-//    Button num0;
-//
-//    Button dot;
-//
-//    Button date;
-
-
-

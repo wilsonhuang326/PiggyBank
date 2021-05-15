@@ -1,6 +1,7 @@
 package com.example.piggybank;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_pop);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btn0 = (Button) findViewById(R.id.num0);
         btn1 = (Button) findViewById(R.id.num1);
@@ -95,7 +97,15 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
             return false;
         }
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 //    public static boolean isNumeric(String str){
 //        for (int i = str.length();--i>=0;){ if (!Character.isDigit(str.charAt(i))){ return false; }
@@ -159,7 +169,17 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
                     strResult = input;
                 }
 
-            } else if (str.length == 3) {//两个数
+            } else if (str.length==2){//one number one operator
+                double result = Double.parseDouble(str[0]);
+                if (result % 1 == 0) {//Integer
+                    text.setText((int) result + " " + op + " ");
+                    strResult= String.valueOf((int) result);
+                } else {//decimal
+                    text.setText(result + " " + op + " ");
+                    strResult= String.valueOf(result);
+                }
+            }
+                else if (str.length == 3) {//两个数
                 double result;
                 switch (str[1]) {
                     //addition

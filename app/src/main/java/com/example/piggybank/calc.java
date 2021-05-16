@@ -20,8 +20,11 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 
 
 
-    void startCalc(){
+    protected void onCreate(Bundle savedInstanceState) {
 
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.calculator_pop);
 
         btn0 = (Button) findViewById(R.id.num0);
         btn1 = (Button) findViewById(R.id.num1);
@@ -42,7 +45,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         btnComp = (Button) findViewById(R.id.comp);
         btnDate = (Button) findViewById(R.id.date);
 
-        text = (TextView) findViewById(R.id.text) ;
+        text = (TextView) findViewById(R.id.text);
 
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
@@ -56,13 +59,13 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         btn9.setOnClickListener(this);
         btnBackward.setOnClickListener(this);
 
-        if(s1 != null && s2 != null && op != null){
-            if(!s1.equals("")&&!s2.equals("")){
+        if (s1 != null && s2 != null && op != null) {
+            if (!s1.equals("") && !s2.equals("")) {
                 btnPlus.setOnClickListener(new click());
                 //System.out.println("herereeeeeee");
             }
 
-        }else{
+        } else {
             btnPlus.setOnClickListener(this);
         }
 

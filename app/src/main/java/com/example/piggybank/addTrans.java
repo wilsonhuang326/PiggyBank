@@ -40,7 +40,7 @@ public class addTrans extends AppCompatActivity{
         mShuru = (Button) findViewById(R.id.shuru);
         mShuru.setOnClickListener(new View.OnClickListener() {
 
-            calc calculator = new calc();
+
             @Override
             public void onClick(View v) {
 
@@ -48,10 +48,6 @@ public class addTrans extends AppCompatActivity{
 
                 View view = getLayoutInflater().inflate(R.layout.calculator_pop,null);
                 mPopCalc = new PopupWindow(view,mShuru.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
-
-
-                calculator.startCalc();
-
 
                 mPopCalc.showAtLocation(addTrans.this.findViewById(R.id.addingTrans),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,

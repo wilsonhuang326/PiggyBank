@@ -76,7 +76,11 @@ public class CategoryAdapter extends BaseAdapter {
         name.setText("出行");
 
        */
-        type.setText(categoryArray.get(position).getType());
+        if (categoryArray.get(position).getType().equals("expense")) {
+            type.setText("支出");
+        } else if (categoryArray.get(position).getType().equals("income")) {
+            type.setText("收入");
+        }
         name.setText(categoryArray.get(position).getName());
         icon.setImageBitmap(getBitmapFromAsset(categoryArray.get(position).getIconPath()) );
 

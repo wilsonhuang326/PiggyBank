@@ -122,9 +122,9 @@ public class AddCategory extends AppCompatActivity {
     private String monitoringRadioGrop() {
         int checked = mRadioGroup.getCheckedRadioButtonId();
         if (checked == R.id.input_expense) {
-            return "支出";
+            return "expense";
         } else if (checked == R.id.input_income) {
-            return "收入";
+            return "income";
         }
         return null;
 

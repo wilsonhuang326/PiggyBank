@@ -18,9 +18,9 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 
     String money;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.calculator_pop);
+
+
+    void startCalc(){
 
 
         btn0 = (Button) findViewById(R.id.num0);
@@ -143,7 +143,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 
 
 
-    private void getResult(){
+    public void getResult(){
 
 
         //text.setText("111");

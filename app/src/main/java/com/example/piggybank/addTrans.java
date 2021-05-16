@@ -42,11 +42,11 @@ public class addTrans extends AppCompatActivity{
 
 
 
-        Button shuru = (Button) findViewById(R.id.shuru);
+        mShuru = (Button) findViewById(R.id.shuru);
          adapter = new CategoryWithNameAdapter(this);
         mGridView = (GridView) findViewById(R.id.category_list_wName);
         mGridView.setAdapter(adapter);
-        shuru.setOnClickListener(new View.OnClickListener() {
+        mShuru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -103,7 +103,7 @@ public class addTrans extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void getCategory(int listType) {
-
-    }
+//    public void getCategory(int listType) {
+//
+//    }
 }

@@ -3,6 +3,7 @@ package com.example.piggybank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -65,7 +66,6 @@ public class CategoryAdapter extends BaseAdapter {
         convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
 
         LinearLayout mLinearLayout = (LinearLayout) convertView.findViewById(R.id.category_background);
-
         ImageView icon=(ImageView) convertView.findViewById(R.id.category_image);
         TextView type = (TextView) convertView.findViewById(R.id.category_type);
         TextView  name= (TextView) convertView.findViewById(R.id.category_name);
@@ -76,7 +76,11 @@ public class CategoryAdapter extends BaseAdapter {
         name.setText("出行");
 
        */
-        type.setText(categoryArray.get(position).getType());
+        if (categoryArray.get(position).getType().equals("expense")) {
+            type.setText("支出");
+        } else if (categoryArray.get(position).getType().equals("income")) {
+            type.setText("收入");
+        }
         name.setText(categoryArray.get(position).getName());
         icon.setImageBitmap(getBitmapFromAsset(categoryArray.get(position).getIconPath()) );
 
@@ -84,7 +88,15 @@ public class CategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 System.out.println("edit");
+                Intent intent = new Intent(mContext.getApplicationContext(), AddCategory.class);
+                intent.putExtra("action","update");
+                intent.putExtra("cid",String.valueOf(categoryArray.get(position).getId()));
+                intent.putExtra("cname",categoryArray.get(position).getName());
+                intent.putExtra("cpath",categoryArray.get(position).getIconPath());
 
+                intent.putExtra("ctype",categoryArray.get(position).getType());
+
+                mContext.startActivity(intent);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {

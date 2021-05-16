@@ -1,16 +1,19 @@
 package com.example.piggybank;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class calc extends AppCompatActivity implements View.OnClickListener {
 
-    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,
-            btnBackward,btnPlus,btnSubtract,btnMultiply,btnDivide,btnComp,btnPoint,btnDate;
+    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9,
+            btnBackward, btnPlus, btnSubtract, btnMultiply, btnDivide, btnComp, btnPoint, btnDate;
 
     TextView text;
     String str = "";
@@ -25,6 +28,8 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_pop);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btn0 = (Button) findViewById(R.id.num0);
         btn1 = (Button) findViewById(R.id.num1);
@@ -59,40 +64,35 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         btn9.setOnClickListener(this);
         btnBackward.setOnClickListener(this);
 
-        if (s1 != null && s2 != null && op != null) {
-            if (!s1.equals("") && !s2.equals("")) {
-                btnPlus.setOnClickListener(new click());
-                //System.out.println("herereeeeeee");
-            }
-
-        } else {
-            btnPlus.setOnClickListener(this);
-        }
-
+        btnPlus.setOnClickListener(this);
         btnSubtract.setOnClickListener(this);
         btnMultiply.setOnClickListener(this);
         btnDivide.setOnClickListener(this);
         btnPoint.setOnClickListener(this);
-        btnComp.setOnClickListener(new click());
+        btnComp.setOnClickListener(this);
         btnDate.setOnClickListener(this);
 
 
     }
 
 
-
-
-    class click implements View.OnClickListener{
-        public void onClick(View v) {
-            getResult();
-
-            money = text.getText().toString();
-
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 //    public static boolean isNumeric(String str){
 //        for (int i = str.length();--i>=0;){ if (!Character.isDigit(str.charAt(i))){ return false; }
@@ -101,9 +101,10 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 //    }
 
 
-    public void onClick(View v){
+    public void onClick(View v) {
         String input = text.getText().toString();
-        switch (v.getId()){
+
+        switch (v.getId()) {
             case R.id.num0:
             case R.id.num1:
             case R.id.num2:
@@ -115,23 +116,25 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
             case R.id.num8:
             case R.id.num9:
             case R.id.dot:
-//                    if (clr == true){
-//                        clr = false;
-//                        str = "";
-//                        text.setText("");
-//                    }
-                text.setText(input + ((Button)v).getText());
+
+                text.setText(input + ((Button) v).getText());
                 break;
             case R.id.minus:
             case R.id.add:
             case R.id.div:
             case R.id.mult:
-//                    if (clr == true){
-//                        clr = false;
-//                        str = "";
-//                        text.setText("");
-//                    }
-                text.setText(input + " " + ((Button)v).getText() + " ");
+
+                getResult(input, ((Button) v).getText().toString());
+
+                //text.setText(input + " " + ((Button)v).getText() + " ");
+                break;
+            case R.id.comp:
+               money=getResult(input, ((Button) v).getText().toString());
+                if (Double.parseDouble(money)%1!=0){
+                    money =String.valueOf((double)Math.round(Double.parseDouble(money) * 100) / 100);
+                }
+                System.out.println("completed:"+money);
+                //text.setText(input + " " + ((Button)v).getText() + " ");
                 break;
             case R.id.chehui:
                 text.setText("");
@@ -139,105 +142,90 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    String s;
-    String s1;
-    String op;
-    String s2;
+
+    private String getResult(String input, String op) {
+
+
+        String strResult="";
+
+        if (!input.isEmpty()) {
+            String[] str = input.split(" ");
+
+            if (str.length == 1) {//一个数
+                if (Double.parseDouble(input) % 1 == 0) {
+                    text.setText(Integer.parseInt(input) + " " + op + " ");
+                    strResult = String.valueOf(Integer.parseInt(input));
+                } else {
+                    text.setText(input + " " + op + " ");
+                    strResult = input;
+                }
+
+            } else if (str.length==2){//one number one operator
+                double result = Double.parseDouble(str[0]);
+                if (result % 1 == 0) {//Integer
+                    text.setText((int) result + " " + op + " ");
+                    strResult= String.valueOf((int) result);
+                } else {//decimal
+                    text.setText(result + " " + op + " ");
+                    strResult= String.valueOf(result);
+                }
+            }
+                else if (str.length == 3) {//两个数
+                double result;
+                switch (str[1]) {
+                    //addition
+                    case "+":
+                        result = Double.parseDouble(str[0]) + Double.parseDouble(str[2]);
+                        if (result % 1 == 0) {//Integer
+                            text.setText((int) result + " " + op + " ");
+                            strResult= String.valueOf((int) result);
+                        } else {//decimal
+                            text.setText(result + " " + op + " ");
+                            strResult= String.valueOf(result);
+                        }
+                        break;
+
+                    case "-":
+                        result = Double.parseDouble(str[0]) - Double.parseDouble(str[2]);
+                        if (result % 1 == 0) {//Integer
+                            text.setText((int) result + " " + op + " ");
+                            strResult= String.valueOf((int) result);
+                        } else {//decimal
+                            text.setText(result + " " + op + " ");
+                            strResult= String.valueOf(result);
+                        }
+                        break;
+
+
+                    case "×":
+                        result = Double.parseDouble(str[0]) * Double.parseDouble(str[2]);
+                        if (result % 1 == 0) {//Integer
+                            text.setText((int) result + " " + op + " ");
+                            strResult= String.valueOf((int) result);
+                        } else {//decimal
+                            text.setText(result + " " + op + " ");
+                            strResult= String.valueOf(result);
+                        }
+                        break;
 
 
 
-    public void getResult(){
+                    case "÷":
+                        result = Double.parseDouble(str[0]) / Double.parseDouble(str[2]);
+                        if (result % 1 == 0) {//Integer
+                            text.setText((int) result + " " + op + " ");
+                            strResult= String.valueOf((int) result);
+                        } else {//decimal
+                            text.setText(result + " " + op + " ");
+                            strResult= String.valueOf(result);
+                        }
+                        break;
 
-
-        //text.setText("111");
-
-        s = text.getText().toString();
-        double result = 0;
-
-        if(s.equals("") || s == null){
-            return;
-        }
-//            if(clr = true){
-//                return;
-//            }
-//            clr = true;
-
-        s1 = s.substring(0,s.indexOf(" "));
-//        运算符
-        op = s.substring(s.indexOf(" ")+1,s.indexOf(" ")+2);
-//        运算符后的数字
-        s2 = s.substring(s.indexOf(" ")+3);
-
-
-
-
-        if(!s1.equals("")&&!s2.equals("")) {
-            double d1 = Double.parseDouble(s1);//则数字都是double类型
-            double d2 = Double.parseDouble(s2);
-            if (op.equals("+")) {   //如果是 +
-                result = d1 + d2;
-            } else if (op.equals("-")) {   //如果是 -
-                result = d1 - d2;
-            } else if (op.equals("×")) {   //如果是 *
-                result = d1 * d2;
-            } else if (op.equals("÷")) {   //如果是 /
-                if (d2 == 0) { //如果被除数是0
-                    result = 0; //则结果是0
-                } else {//否则执行正常是除法运算
-                    result = d1 / d2;
                 }
             }
 
-            if (!s1.contains(".") && !s2.contains(".") && !op.equals("÷")) {//如果是整数类型
-                int r = (int) result; //都是整形
-                text.setText(r+"");
-            } else{
-                text.setText(result+"");
-            }
 
         }
-
-        else if(!s1.equals("")&&s2.equals("")){
-            double d1 = Double.parseDouble(s1);
-            if (op.equals("+")){
-                result = d1;
-            }
-            if (op.equals("-")) {
-                result = d1;
-            }
-            if (op.equals("×")) {
-                result = d1;
-            }
-            if (op.equals("/")) {
-                result = d1;
-            }
-            if(!s1.contains(".")) {
-                int res = (int) result;
-                text.setText(res+"");
-            }else {
-                text.setText(result+"");
-            }
-        }
-
-        else if(s1.equals("")&& !s2.equals("")){
-            double d2 = Double.parseDouble(s2);
-            if(op.equals("+")){
-                result = 0+d2;
-            }else if(op.equals("-")){
-                result = 0-d2;
-            }else if(op.equals("×")){
-                result = 0;
-            }else if(op.equals("÷")){
-                result = 0;
-            }
-            if(!s1.contains(".") && !s2.contains(".")){
-                int ress = (int) result;
-                text.setText(ress + "");
-            }else{
-                text.setText(result + "");
-            }
-        }else{
-            text.setText("");
-        }
+        return strResult;
     }
 }

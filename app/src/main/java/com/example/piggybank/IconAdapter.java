@@ -29,10 +29,10 @@ public class IconAdapter extends BaseAdapter {
 
         ArrayList<String> pathList = new ArrayList<>();
         folderPath = "Category";
-        String[] mImageArray = null;
+        String[] mImageList = null;
         try {
-            mImageArray = mContext.getAssets().list(folderPath);
-            for (String name : mImageArray) {
+            mImageList = mContext.getAssets().list(folderPath);
+            for (String name : mImageList) {
                 pathList.add(folderPath + File.separator + name);
                 //Log.e("pathList item", folderPath + File.separator + name);
 
@@ -41,7 +41,7 @@ public class IconAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        imageArray = new ArrayList<String>(Arrays.asList(mImageArray));
+        imageArray = new ArrayList<String>(Arrays.asList(mImageList));
 
         //System.out.println(imageArray.size());
     }
@@ -77,6 +77,24 @@ public class IconAdapter extends BaseAdapter {
     public void setSelectedPosition(int position) {
         this.selectedPosition = position;
         notifyDataSetChanged();
+
+    }
+    /*
+    private int getIndexOfIcon(String path) {
+        for (int i = 0; i < imageArray.size(); i++)
+            if (imageArray.get(i).getCustomer().getAccountNum() == searchActNum)
+                return i;
+        return -1;
+    }
+
+     */
+    public int setSelectedPosition(String path) {
+        //this.selectedPosition = position;
+        int index = imageArray.indexOf(path);
+        this.selectedPosition = index;
+        System.out.println(index);
+        notifyDataSetChanged();
+        return index;
 
     }
 

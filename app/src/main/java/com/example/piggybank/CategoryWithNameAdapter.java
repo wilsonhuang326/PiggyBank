@@ -27,12 +27,13 @@ public class CategoryWithNameAdapter extends BaseAdapter {
     private ArrayList<Category> categoryArray;
     private String folderPath = "Category";
     public int selectedPosition;
+
     public CategoryWithNameAdapter() {
     }
 
     public CategoryWithNameAdapter(Context mContext) {
-        this.mContext=mContext;
-        categoryArray=new ArrayList<Category>();
+        this.mContext = mContext;
+        categoryArray = new ArrayList<Category>();
 
         readAllFromCategoryTable();
     }
@@ -60,7 +61,7 @@ public class CategoryWithNameAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.item_category_image);
 
-        TextView textView=(TextView)convertView.findViewById(R.id.item_category_text);
+        TextView textView = (TextView) convertView.findViewById(R.id.item_category_text);
         //imageView.setImageBitmap(getBitmapFromAsset(imageArray.get(position)) );
 
         // imageView.setImageResource(imageArray[position]);
@@ -69,7 +70,7 @@ public class CategoryWithNameAdapter extends BaseAdapter {
 
 
         imageView.setImageBitmap(getBitmapFromAsset(categoryArray.get(position).getIconPath()));
-        readAllFromCategoryTable();
+
         textView.setText(categoryArray.get(position).getName());
         if (position == selectedPosition) {
 
@@ -84,41 +85,75 @@ public class CategoryWithNameAdapter extends BaseAdapter {
         return convertView;
 
     }
+
     public void setSelectedPosition(int position) {
         this.selectedPosition = position;
         notifyDataSetChanged();
 
     }
-    public Bitmap getBitmapFromAsset(String strName)
-    {
+
+    public Bitmap getBitmapFromAsset(String strName) {
 
         AssetManager assetManager = mContext.getAssets();
         InputStream istr = null;
         try {
-            istr = assetManager.open(folderPath + File.separator +strName);
+            istr = assetManager.open(folderPath + File.separator + strName);
         } catch (IOException e) {
             e.printStackTrace();
         }
         Bitmap bitmap = BitmapFactory.decodeStream(istr);
         return bitmap;
     }
-    public void readAllFromCategoryTable(){
+
+    public void readAllFromCategoryTable() {
         categoryArray.clear();
         SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(mContext, null, null, 1);
         SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        Cursor cursor =dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
+        Cursor cursor = dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
                 new String[]{CategorySQLiteHelper.FIELD_ID, CategorySQLiteHelper.FIELD_NAME, CategorySQLiteHelper.FIELD_ICON, CategorySQLiteHelper.FIELD_TYPE},
-                null,null,null,null,null);
-        while(cursor.moveToNext()){
+                null, null, null, null, null);
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ID));
             String name = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_NAME));
             String icon = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ICON));
             String type = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_TYPE));
-            Category c=new Category(id,name, icon, type);
+            Category c = new Category(id, name, icon, type);
             categoryArray.add(c);
-            Log.i("Mainactivity","result: id="  + id +" name: " + name +"  icon:" + icon+" type:"+type);
+            Log.i("CATEGORYWITHNAME", "result: id=" + id + " name: " + name + "  icon:" + icon + " type:" + type);
         }
 
         cursor.close();
+    }
+
+    public void readByTypeFromCategoryTable(int listType) {
+        categoryArray.clear();
+
+        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(mContext, null, null, 1);
+        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
+        Cursor cursor = null;
+        if (listType == 0) {
+            cursor = dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
+                    new String[]{CategorySQLiteHelper.FIELD_ID, CategorySQLiteHelper.FIELD_NAME, CategorySQLiteHelper.FIELD_ICON, CategorySQLiteHelper.FIELD_TYPE},
+                    CategorySQLiteHelper.FIELD_TYPE + "=?", new String[]{"expense"}, null, null, null);
+        }else if(listType==1){
+            cursor =dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
+                    new String[]{CategorySQLiteHelper.FIELD_ID, CategorySQLiteHelper.FIELD_NAME, CategorySQLiteHelper.FIELD_ICON, CategorySQLiteHelper.FIELD_TYPE},
+                    CategorySQLiteHelper.FIELD_TYPE+"=?",new String[]{"income"},null,null,null);
+        }
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ID));
+            String name = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_NAME));
+            String icon = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ICON));
+            String type = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_TYPE));
+            Category c = new Category(id, name, icon, type);
+            categoryArray.add(c);
+
+            Log.i("HUANG", "result: id=" + id + " name: " + name + "  icon:" + icon + " type:" + type);
+        }
+        Log.d("ARRAYSIZE", String.valueOf(categoryArray.size()));
+        cursor.close();
+        notifyDataSetChanged();
+
     }
 }

@@ -11,18 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="70dp">
         <Button
-            android:id="@+id/expenditure1"
+            android:id="@+id/expense_category_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="支出"
             android:layout_weight="1"/>
         <Button
-            android:id="@+id/income1"
+            android:id="@+id/income_category_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="收入"
             android:layout_weight="1"/>
-            
+
     </LinearLayout>
 
 
@@ -40,35 +40,6 @@
         </GridView>
     </LinearLayout>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="350dp"-->
-<!--        android:background="#FFE4E1"-->
-<!--        android:layout_weight="1">-->
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#00F5FF"/>-->
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#E6E6FA"/>-->
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#FFF0F5"/>-->
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#FFE4B5"/>-->
-
-<!--    </LinearLayout>-->
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,7 +53,7 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <EditText
-                android:id="@+id/edit_text1"
+                android:id="@+id/edit_text111"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:hint="输入金额"
@@ -110,53 +81,7 @@
                 android:text="shuru"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-<!--            <GridLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:columnCount="4"-->
-<!--                android:orientation="vertical"-->
-<!--                android:rowCount="5">-->
 
-<!--                <Button android:id="@+id/div" android:text="/" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/num1" android:text="1" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/num4" android:text="4" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/num7" android:text="7" android:layout_gravity="fill" />-->
-
-<!--                <Button android:text="" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/mult" android:text="*" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/num2" android:text="2" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/num5" android:text="5" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/num8" android:text="8" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/num0" android:text="0" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/minus" android:text="-" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/num3" android:text="3" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/num6" android:text="6" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/num9" android:text="9" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:text="" />-->
-
-<!--                <Button android:id="@+id/add" android:text="+" android:layout_gravity="fill" />-->
-
-<!--                <Button android:id="@+id/date" android:text="日期" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/dot" android:text="." android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/chehui" android:text="撤回" android:layout_gravity="fill"/>-->
-
-<!--                <Button android:id="@+id/comp" android:text="完成" android:layout_gravity="fill"/>-->
-<!--            </GridLayout>-->
         </LinearLayout>
     </LinearLayout>
 

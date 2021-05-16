@@ -71,16 +71,17 @@ public class addTrans extends AppCompatActivity{
         expense_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCategory(0);
+                adapter.readByTypeFromCategoryTable(0);
             }
         });
 
         income_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCategory(1);
+                adapter.readByTypeFromCategoryTable(1);
             }
         });
+        expense_list.callOnClick();
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -103,6 +104,6 @@ public class addTrans extends AppCompatActivity{
     }
 
     public void getCategory(int listType) {
-        adapter.readByTypeFromCategoryTable(listType);
+
     }
 }

@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="70dp">
         <Button
-            android:id="@+id/expenditure1"
+            android:id="@+id/expense_category_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="支出"
             android:layout_weight="1"/>
         <Button
-            android:id="@+id/income1"
+            android:id="@+id/income_category_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="收入"

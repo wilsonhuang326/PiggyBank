@@ -3,6 +3,7 @@ package com.example.piggybank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -83,7 +84,15 @@ public class CategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 System.out.println("edit");
+                Intent intent = new Intent(mContext.getApplicationContext(), AddCategory.class);
+                intent.putExtra("action","update");
+                intent.putExtra("cid",String.valueOf(categoryArray.get(position).getId()));
+                intent.putExtra("cname",categoryArray.get(position).getName());
+                intent.putExtra("cpath",categoryArray.get(position).getIconPath());
 
+                intent.putExtra("ctype",categoryArray.get(position).getType());
+
+                mContext.startActivity(intent);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {

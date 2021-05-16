@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -23,7 +24,8 @@ public class AddCategory extends AppCompatActivity {
     private RadioGroup mRadioGroup;
     private EditText mEditText;
     private int selectedPosition;
-
+    private String action;
+    private IconAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +37,20 @@ public class AddCategory extends AppCompatActivity {
         mGridView = (GridView) findViewById(R.id.icon_list);
 
 
-        IconAdapter adapter = new IconAdapter(this);
+         adapter = new IconAdapter(this);
         mGridView.setAdapter(adapter);
+        action = getIntent().getExtras().getString("action");
+        Log.e("after", action);
+        if (action.equals("update")) {
+            setInput();
 
+        }
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("before", String.valueOf(adapter.selectedPosition));
 
                 adapter.setSelectedPosition(position);
                 selectedPosition = position;
-
-                Log.e("after", String.valueOf(adapter.selectedPosition));
 
 
             }
@@ -69,13 +73,31 @@ public class AddCategory extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_done:
+
                 createCategory();
+
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void setInput(){
+        Log.d("cname",getIntent().getExtras().getString("cname"));
+        Log.d("cpath",getIntent().getExtras().getString("cpath"));
+        Log.d("ctype",getIntent().getExtras().getString("ctype"));
+
+        mEditText.setText(getIntent().getExtras().getString("cname"));
+        String path=getIntent().getExtras().getString("cpath");
+        selectedPosition = adapter.setSelectedPosition(path);
+
+        String type = getIntent().getExtras().getString("ctype");
+        if (type.equals("支出") || type.equals("expense")) {
+            mRadioGroup.check(R.id.input_expense);
+        } else if (type.equals("收入") || type.equals("income")) {
+            mRadioGroup.check(R.id.input_income);
+        }
+    }
     private void createCategory() {
         String path = getIconPath();
         String type = monitoringRadioGrop();
@@ -83,7 +105,11 @@ public class AddCategory extends AppCompatActivity {
         if (name.isEmpty()) {
             Log.d("error:", "getCategoryName");
         } else {
-            addToCategoryTable(path,type,name);
+            if (action.equals("add")) {
+                addToCategoryTable(path, type, name);
+            } else if (action.equals("update")) {
+                updateCategoryTable(path, type, name);
+            }
         }
 
 
@@ -94,11 +120,11 @@ public class AddCategory extends AppCompatActivity {
     }
 
     private String monitoringRadioGrop() {
-        int checked= mRadioGroup.getCheckedRadioButtonId();
-        if (checked==R.id.input_expense){
-            return "expense";
-        }else if (checked==R.id.input_income){
-            return "income";
+        int checked = mRadioGroup.getCheckedRadioButtonId();
+        if (checked == R.id.input_expense) {
+            return "支出";
+        } else if (checked == R.id.input_income) {
+            return "收入";
         }
         return null;
 
@@ -109,30 +135,13 @@ public class AddCategory extends AppCompatActivity {
         return String.valueOf(mEditText.getText());
     }
 
-    private void addToCategoryTable(String path,String type,String name) {
-        /*
-        String fileDirPath = "data/data/com.example.piggybank/files";
-        String filename = "category_list.txt";
-
-        FileHelper fileHelper = new FileHelper(fileDirPath, filename,CategoryManagement.this);
-        int raw = R.raw.category_list;
-        try {
-            if (!fileHelper.checkFolderExists()) {
-                fileHelper.createFolder();
-            }
-            if (!fileHelper.checkFileExists()) {
-                fileHelper.createFile();
-            }
-            fileHelper.fileAddLineToTheEnd(name+" "+path+" "+type);
-            //fileHelper.copyRawFile(raw);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+    private void addToCategoryTable(String path, String type, String name) {
+        Log.d("action", "add");
         SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(this, null, null, 1);
         SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
         dbWriter.beginTransaction();
         ContentValues cv = new ContentValues();
-        cv.put(CategorySQLiteHelper.FIELD_TYPE,type);
+        cv.put(CategorySQLiteHelper.FIELD_TYPE, type);
         cv.put(CategorySQLiteHelper.FIELD_NAME, name);
         cv.put(CategorySQLiteHelper.FIELD_ICON, path);
         dbWriter.insert(CategorySQLiteHelper.TABLE_NAME, null, cv);
@@ -141,6 +150,32 @@ public class AddCategory extends AppCompatActivity {
         dbWriter.close();
 
     }
+
+    private void updateCategoryTable(String path, String type, String name) {
+        Log.d("action", "update");
+
+        String cid = getIntent().getExtras().getString("cid");
+        Log.d("cid", cid);
+        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(this, null, null, 1);
+        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
+        SQLiteDatabase dbReader = dbHelper.getReadableDatabase();
+
+        dbWriter.beginTransaction();
+
+
+                ContentValues cv = new ContentValues();
+        cv.put(CategorySQLiteHelper.FIELD_TYPE, type);
+        cv.put(CategorySQLiteHelper.FIELD_NAME, name);
+        cv.put(CategorySQLiteHelper.FIELD_ICON, path);
+        dbWriter.update(CategorySQLiteHelper.TABLE_NAME, cv, CategorySQLiteHelper.FIELD_ID+"= ?", new String[]{cid});
+
+
+        dbWriter.setTransactionSuccessful();
+        dbWriter.endTransaction();
+        dbWriter.close();
+
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {

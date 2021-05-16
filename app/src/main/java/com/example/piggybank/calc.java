@@ -21,7 +21,11 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 
     String money;
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_pop);
 
@@ -59,6 +63,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         btn8.setOnClickListener(this);
         btn9.setOnClickListener(this);
         btnBackward.setOnClickListener(this);
+
         btnPlus.setOnClickListener(this);
         btnSubtract.setOnClickListener(this);
         btnMultiply.setOnClickListener(this);
@@ -68,24 +73,6 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
         btnDate.setOnClickListener(this);
 
 
-        String[] str = "".split("\\s+");
-        System.out.println("case 0:" + Arrays.toString(str));
-
-        String[] str1 = "1 + 2".split("\\s+");
-        System.out.println("case 1:" + Arrays.toString(str1));
-
-
-        String[] str2 = "1".split("\\\\s+");
-        System.out.println("case 2:" + Arrays.toString(str2));
-
-        String[] str3 = "1 + ".split(" ");
-        System.out.println("case 3:" + Arrays.toString(str3));
-
-        String[] str4 = " + 2".split(" ");
-        System.out.println("case 4:" + Arrays.toString(str4));
-
-        String[] str5 = "  +  ".split(" ");
-        System.out.println("case 5:" + Arrays.toString(str5));
     }
 
 
@@ -157,6 +144,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
 
 
     private String getResult(String input, String op) {
+
 
         String strResult="";
 

@@ -1,9 +1,12 @@
 package com.example.piggybank;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,12 +27,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.util.Calendar;
+
 public class addTrans extends AppCompatActivity{
 
 
     GridView mGridView;
     Button mShuru;
-    PopupWindow mPopCalc;
+    //PopupWindow mPopCalc;
+    private TextView mDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+
 
     private Button expense_list, income_list;
     private int selectedPosition;
@@ -40,27 +49,44 @@ public class addTrans extends AppCompatActivity{
         setContentView(R.layout.adding_trans);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
+        //输入金额
+        Calc calc = new Calc(this);
         mShuru = (Button) findViewById(R.id.shuru);
-         adapter = new CategoryWithNameAdapter(this);
-        mGridView = (GridView) findViewById(R.id.category_list_wName);
-        mGridView.setAdapter(adapter);
         mShuru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-
-                View view = getLayoutInflater().inflate(R.layout.calculator_pop,null);
-                mPopCalc = new PopupWindow(view,mShuru.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
-
-                mPopCalc.showAtLocation(addTrans.this.findViewById(R.id.addingTrans),
+                calc.showAtLocation(addTrans.this.findViewById(R.id.addingTrans),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                         0,
                         0);
             }
         });
+
+//        mDate = (TextView) findViewById(R.id.date1);
+//        mDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Calendar calendar = Calendar.getInstance();
+//                int year = calendar.get(Calendar.YEAR);
+//                int month = calendar.get(Calendar.MONTH);
+//                int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//                DatePickerDialog dialog = new DatePickerDialog(addTrans.this,
+//                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+//                        mDateSetListener,
+//                        year,month,day);
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                dialog.show();
+//            }
+//        });
+
+
+
+
+        adapter = new CategoryWithNameAdapter(this);
+        mGridView = (GridView) findViewById(R.id.category_list_wName);
+        mGridView.setAdapter(adapter);
 
         CategoryWithNameAdapter adapter = new CategoryWithNameAdapter(this);
         mGridView = (GridView)findViewById(R.id.category_list_wName);

@@ -1,16 +1,23 @@
 package com.example.piggybank;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
 
-public class calc extends AppCompatActivity implements View.OnClickListener {
+public class Calc extends PopupWindow implements View.OnClickListener {
 
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9,
             btnBackward, btnPlus, btnSubtract, btnMultiply, btnDivide, btnComp, btnPoint, btnDate;
@@ -18,39 +25,46 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
     TextView text;
     String str = "";
     boolean clr;
+    private View mView;
 
     String money;
 
 
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public Calc (Activity context){
+        super(context);
+        LayoutInflater mInflater = (LayoutInflater) context
+ .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mView = mInflater.inflate(R.layout.calculator_pop, null);
 
+        this.setWidth(ActionBar.LayoutParams.MATCH_PARENT);
+        setContentView(mView);
+        setTouchable(true);
+        setOutsideTouchable(true);
+        setFocusable(true);
+        setBackgroundDrawable(new BitmapDrawable(context.getResources()));
+        getContentView().setFocusableInTouchMode(true);
+        getContentView().setFocusable(true);
+        btn0 = (Button) mView.findViewById(R.id.num0);
+        btn1 = (Button) mView.findViewById(R.id.num1);
+        btn2 = (Button) mView.findViewById(R.id.num2);
+        btn3 = (Button) mView.findViewById(R.id.num3);
+        btn4 = (Button) mView.findViewById(R.id.num4);
+        btn5 = (Button) mView.findViewById(R.id.num5);
+        btn6 = (Button) mView.findViewById(R.id.num6);
+        btn7 = (Button) mView.findViewById(R.id.num7);
+        btn8 = (Button) mView.findViewById(R.id.num8);
+        btn9 = (Button) mView.findViewById(R.id.num9);
+        btnBackward = (Button) mView.findViewById(R.id.chehui);
+        btnPlus = (Button) mView.findViewById(R.id.add);
+        btnSubtract = (Button) mView.findViewById(R.id.minus);
+        btnMultiply = (Button) mView.findViewById(R.id.mult);
+        btnDivide = (Button) mView.findViewById(R.id.div);
+        btnPoint = (Button) mView.findViewById(R.id.dot);
+        btnComp = (Button) mView.findViewById(R.id.comp);
+        btnDate = (Button) mView.findViewById(R.id.date);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.calculator_pop);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        btn0 = (Button) findViewById(R.id.num0);
-        btn1 = (Button) findViewById(R.id.num1);
-        btn2 = (Button) findViewById(R.id.num2);
-        btn3 = (Button) findViewById(R.id.num3);
-        btn4 = (Button) findViewById(R.id.num4);
-        btn5 = (Button) findViewById(R.id.num5);
-        btn6 = (Button) findViewById(R.id.num6);
-        btn7 = (Button) findViewById(R.id.num7);
-        btn8 = (Button) findViewById(R.id.num8);
-        btn9 = (Button) findViewById(R.id.num9);
-        btnBackward = (Button) findViewById(R.id.chehui);
-        btnPlus = (Button) findViewById(R.id.add);
-        btnSubtract = (Button) findViewById(R.id.minus);
-        btnMultiply = (Button) findViewById(R.id.mult);
-        btnDivide = (Button) findViewById(R.id.div);
-        btnPoint = (Button) findViewById(R.id.dot);
-        btnComp = (Button) findViewById(R.id.comp);
-        btnDate = (Button) findViewById(R.id.date);
-
-        text = (TextView) findViewById(R.id.text);
+        text = (TextView) mView.findViewById(R.id.text);
 
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
@@ -84,15 +98,7 @@ public class calc extends AppCompatActivity implements View.OnClickListener {
             return false;
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
 //    public static boolean isNumeric(String str){
 //        for (int i = str.length();--i>=0;){ if (!Character.isDigit(str.charAt(i))){ return false; }

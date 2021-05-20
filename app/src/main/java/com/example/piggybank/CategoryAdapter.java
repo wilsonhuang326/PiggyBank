@@ -32,16 +32,16 @@ import java.util.List;
 public class CategoryAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Category> categoryArray;
-    private  String folderPath="Category";
+    private String folderPath = "Category";
+    private CategorySQLiteHelper categorySQLiteHelper;
 
     public CategoryAdapter() {
     }
 
     public CategoryAdapter(Context mContext) {
         this.mContext = mContext;
-        categoryArray=new ArrayList<Category>();
-
-        readAllFromCategoryTable();
+        categorySQLiteHelper = new CategorySQLiteHelper(mContext, null, null, 1);
+        categoryArray = categorySQLiteHelper.readAllFromCategoryTable();
     }
 
     @Override
@@ -66,88 +66,52 @@ public class CategoryAdapter extends BaseAdapter {
         convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
 
         LinearLayout mLinearLayout = (LinearLayout) convertView.findViewById(R.id.category_background);
-        ImageView icon=(ImageView) convertView.findViewById(R.id.category_image);
+        ImageView icon = (ImageView) convertView.findViewById(R.id.category_image);
         TextView type = (TextView) convertView.findViewById(R.id.category_type);
-        TextView  name= (TextView) convertView.findViewById(R.id.category_name);
+        TextView name = (TextView) convertView.findViewById(R.id.category_name);
         ImageButton edit = (ImageButton) convertView.findViewById(R.id.category_edit_button);
         ImageButton delete = (ImageButton) convertView.findViewById(R.id.category_delete_button);
-      /*
-        type.setText("收入");
-        name.setText("出行");
 
-       */
-        if (categoryArray.get(position).getType().equals("expense")) {
+        if (CategoryType.EXPENSE.equalsType(categoryArray.get(position).getType())) {
             type.setText("支出");
-        } else if (categoryArray.get(position).getType().equals("income")) {
+        } else if (CategoryType.INCOME.equalsType(categoryArray.get(position).getType())) {
             type.setText("收入");
         }
         name.setText(categoryArray.get(position).getName());
-        icon.setImageBitmap(getBitmapFromAsset(categoryArray.get(position).getIconPath()) );
+        AssetsHelper assetsHelper=new AssetsHelper(mContext,folderPath);
+        String iconPath=categoryArray.get(position).getIconPath();
+        icon.setImageBitmap(assetsHelper.getBitmapFromAsset(iconPath));
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("edit");
                 Intent intent = new Intent(mContext.getApplicationContext(), AddCategory.class);
-                intent.putExtra("action","update");
-                intent.putExtra("cid",String.valueOf(categoryArray.get(position).getId()));
-                intent.putExtra("cname",categoryArray.get(position).getName());
-                intent.putExtra("cpath",categoryArray.get(position).getIconPath());
-
-                intent.putExtra("ctype",categoryArray.get(position).getType());
-
+                intent.putExtra("action", "update");
+                intent.putExtra("cid", String.valueOf(categoryArray.get(position).getId()));
+                intent.putExtra("cname", categoryArray.get(position).getName());
+                intent.putExtra("cpath", categoryArray.get(position).getIconPath());
+                intent.putExtra("ctype", categoryArray.get(position).getType());
                 mContext.startActivity(intent);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("delete");
-              deleteFromDB(position);
-
+                CategorySQLiteHelper categorySQLiteHelper = new CategorySQLiteHelper(mContext, null, null, 1);
+                categoryArray = categorySQLiteHelper.deleteFromDB(categoryArray.get(position).getId());
+                notifyDataSetChanged();
             }
         });
         return convertView;
     }
 
-    private void deleteFromDB(int position){
-        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(mContext, null, null, 1);
-        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        System.out.println("id"+categoryArray.get(position).getId());
-        dbWriter.delete(CategorySQLiteHelper.TABLE_NAME,CategorySQLiteHelper.FIELD_ID+"=?",new String[]{String.valueOf(categoryArray.get(position).getId())});
-        readAllFromCategoryTable();
-        CategoryAdapter.this.notifyDataSetChanged();
-    }
-    public Bitmap getBitmapFromAsset(String strName)
-    {
 
-        AssetManager assetManager = mContext.getAssets();
-        InputStream istr = null;
-        try {
-            istr = assetManager.open(folderPath + File.separator +strName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(istr);
-        return bitmap;
-    }
-    public void readAllFromCategoryTable(){
-        categoryArray.clear();
-        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(mContext, null, null, 1);
-        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        Cursor cursor =dbWriter.query(CategorySQLiteHelper.TABLE_NAME,
-                new String[]{CategorySQLiteHelper.FIELD_ID, CategorySQLiteHelper.FIELD_NAME, CategorySQLiteHelper.FIELD_ICON, CategorySQLiteHelper.FIELD_TYPE},
-                null,null,null,null,null);
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ID));
-            String name = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_NAME));
-            String icon = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_ICON));
-            String type = cursor.getString(cursor.getColumnIndex(CategorySQLiteHelper.FIELD_TYPE));
-            Category c=new Category(id,name, icon, type);
-            categoryArray.add(c);
-            Log.i("Mainactivity","result: id="  + id +" name: " + name +"  icon:" + icon+" type:"+type);
-        }
 
-        cursor.close();
+    public void readAllFromCategoryTable() {
+        categoryArray = categorySQLiteHelper.readAllFromCategoryTable();
+        notifyDataSetChanged();
+
     }
+
 }

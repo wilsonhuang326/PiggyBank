@@ -41,7 +41,7 @@ public class AddCategory extends AppCompatActivity {
         mGridView.setAdapter(adapter);
         action = getIntent().getExtras().getString("action");
         Log.e("after", action);
-        if (action.equals("update")) {
+        if (Action.UPDATE.equalsType(action)) {
             setInput();
 
         }
@@ -83,10 +83,6 @@ public class AddCategory extends AppCompatActivity {
     }
 
     private void setInput(){
-        Log.d("cname",getIntent().getExtras().getString("cname"));
-        Log.d("cpath",getIntent().getExtras().getString("cpath"));
-        Log.d("ctype",getIntent().getExtras().getString("ctype"));
-
         mEditText.setText(getIntent().getExtras().getString("cname"));
         String path=getIntent().getExtras().getString("cpath");
         selectedPosition = adapter.setSelectedPosition(path);
@@ -105,10 +101,13 @@ public class AddCategory extends AppCompatActivity {
         if (name.isEmpty()) {
             Log.d("error:", "getCategoryName");
         } else {
-            if (action.equals("add")) {
-                addToCategoryTable(path, type, name);
-            } else if (action.equals("update")) {
-                updateCategoryTable(path, type, name);
+            CategorySQLiteHelper categorySQLiteHelper= new CategorySQLiteHelper(this, null, null, 1);
+            if (Action.INSERT.equalsType(action)) {
+               // addToCategoryTable(path, type, name);
+                categorySQLiteHelper.addToCategoryTable(path,type,name);
+            } else if (Action.UPDATE.equalsType(action)) {
+                String cid = getIntent().getExtras().getString("cid");
+                categorySQLiteHelper.updateCategoryTable(cid,path, type, name);
             }
         }
 
@@ -131,50 +130,12 @@ public class AddCategory extends AppCompatActivity {
     }
 
     private String getCategoryName() {
-        Log.d("category name:", String.valueOf(mEditText.getText()));
         return String.valueOf(mEditText.getText());
     }
 
-    private void addToCategoryTable(String path, String type, String name) {
-        Log.d("action", "add");
-        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(this, null, null, 1);
-        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        dbWriter.beginTransaction();
-        ContentValues cv = new ContentValues();
-        cv.put(CategorySQLiteHelper.FIELD_TYPE, type);
-        cv.put(CategorySQLiteHelper.FIELD_NAME, name);
-        cv.put(CategorySQLiteHelper.FIELD_ICON, path);
-        dbWriter.insert(CategorySQLiteHelper.TABLE_NAME, null, cv);
-        dbWriter.setTransactionSuccessful();
-        dbWriter.endTransaction();
-        dbWriter.close();
-
-    }
-
-    private void updateCategoryTable(String path, String type, String name) {
-        Log.d("action", "update");
-
-        String cid = getIntent().getExtras().getString("cid");
-        Log.d("cid", cid);
-        SQLiteOpenHelper dbHelper = new CategorySQLiteHelper(this, null, null, 1);
-        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        SQLiteDatabase dbReader = dbHelper.getReadableDatabase();
-
-        dbWriter.beginTransaction();
 
 
-                ContentValues cv = new ContentValues();
-        cv.put(CategorySQLiteHelper.FIELD_TYPE, type);
-        cv.put(CategorySQLiteHelper.FIELD_NAME, name);
-        cv.put(CategorySQLiteHelper.FIELD_ICON, path);
-        dbWriter.update(CategorySQLiteHelper.TABLE_NAME, cv, CategorySQLiteHelper.FIELD_ID+"= ?", new String[]{cid});
 
-
-        dbWriter.setTransactionSuccessful();
-        dbWriter.endTransaction();
-        dbWriter.close();
-
-    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent motionEvent) {

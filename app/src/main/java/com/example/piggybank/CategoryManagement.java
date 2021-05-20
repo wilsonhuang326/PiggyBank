@@ -1,5 +1,7 @@
 package com.example.piggybank;
-
+/*
+分类管理页面
+ */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,15 +21,13 @@ import java.lang.reflect.Array;
 
 public class CategoryManagement extends AppCompatActivity {
     private ListView mListView;
-    Button addCategoryActivityButton;
-    CategoryAdapter adapter;
+    private Button addCategoryActivityButton;
+    private CategoryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_management);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         mListView=(ListView)findViewById(R.id.category_list);
         adapter = new CategoryAdapter(this);
         mListView.setAdapter(adapter);
@@ -37,7 +37,7 @@ public class CategoryManagement extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddCategory.class);
-                intent.putExtra("action","add");
+                intent.putExtra("action",Action.INSERT.toString());
                 startActivity(intent);
 
             }
@@ -49,7 +49,6 @@ public class CategoryManagement extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.readAllFromCategoryTable();
-        adapter.notifyDataSetChanged();
 
     }
 

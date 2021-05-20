@@ -1,5 +1,7 @@
 package com.example.piggybank;
-
+/*
+应用本身设定页面
+ */
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;

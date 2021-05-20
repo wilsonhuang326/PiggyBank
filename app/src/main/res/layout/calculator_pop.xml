@@ -3,7 +3,6 @@
     android:id="@+id/calc_pop"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:gravity="center_horizontal"
     android:orientation="vertical"
     >
@@ -16,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
             android:background="@color/white_smoke">
@@ -30,9 +29,8 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:hint="0.00"
                 android:textSize="20dp"
-
+                android:hint="输入金额"
                 android:gravity="center"
                 android:layout_marginRight="10dp"
                 android:layout_weight="8"/>
@@ -49,12 +47,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/div" android:text="÷"
                 android:layout_marginTop="-8dp"
@@ -62,7 +60,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/mult" android:text="×"
                 android:layout_marginTop="-8dp"
@@ -70,7 +68,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/minus" android:text="-"
                 android:layout_marginTop="-8dp"
@@ -78,7 +76,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/add" android:text="+"
                 android:layout_marginTop="-8dp"
@@ -92,12 +90,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num1" android:text="1"
                 android:layout_marginTop="-8dp"
@@ -105,7 +103,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num2" android:text="2"
                 android:layout_marginTop="-8dp"
@@ -113,7 +111,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num3" android:text="3"
                 android:layout_marginTop="-8dp"
@@ -121,7 +119,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/huobi" android:text="$￥"
                 android:layout_marginTop="-8dp"
@@ -135,12 +133,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num4" android:text="4"
                 android:layout_marginTop="-8dp"
@@ -148,7 +146,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num5" android:text="5"
                 android:layout_marginTop="-8dp"
@@ -156,7 +154,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num6" android:text="6"
                 android:layout_marginTop="-8dp"
@@ -164,7 +162,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/dot" android:text="."
                 android:layout_marginTop="-8dp"
@@ -179,12 +177,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num7" android:text="7"
                 android:layout_marginTop="-8dp"
@@ -192,7 +190,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num8" android:text="8"
                 android:layout_marginTop="-8dp"
@@ -200,7 +198,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num9" android:text="9"
                 android:layout_marginTop="-8dp"
@@ -208,7 +206,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/chehui" android:text="撤回"
                 android:layout_marginTop="-8dp"
@@ -222,12 +220,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
                 android:layout_marginTop="-8dp"
@@ -235,7 +233,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/num0" android:text="0"
                 android:layout_marginTop="-8dp"
@@ -243,7 +241,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text=""
                 android:layout_marginTop="-8dp"
@@ -251,7 +249,7 @@
                 android:background="@color/white_smoke"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/comp" android:text="完成"
                 android:layout_marginTop="-8dp"

@@ -24,8 +24,10 @@ public class Calc extends PopupWindow implements View.OnClickListener {
 
     //计算器
     private View view;
-    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9,
+    Button btn0, btn1, btn2, btn3,
+  btn4, btn5, btn6, btn7, btn8, btn9,
             btnBackward, btnPlus, btnSubtract, btnMultiply, btnDivide, btnComp, btnPoint;
+
 
 
     TextView text;
@@ -51,12 +53,21 @@ public class Calc extends PopupWindow implements View.OnClickListener {
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
+//     private View mView;
+//     String money;
+//     public Calc (Activity context){
+//         super(context);
+//         LayoutInflater mInflater = (LayoutInflater) context
+//  .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//         mView = mInflater.inflate(R.layout.calculator_pop, null);
+
+//         this.setWidth(ActionBar.LayoutParams.MATCH_PARENT);
+//         setContentView(mView);
+  
         setTouchable(true);
         setOutsideTouchable(true);
         setFocusable(true);
         setBackgroundDrawable(new BitmapDrawable(context.getResources()));
-        //update();
-
 
         btn0 = (Button) view.findViewById(R.id.num0);
         btn1 = (Button) view.findViewById(R.id.num1);
@@ -78,6 +89,7 @@ public class Calc extends PopupWindow implements View.OnClickListener {
 
 
         text = (TextView) view.findViewById(R.id.text);
+
 
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
@@ -142,6 +154,7 @@ public class Calc extends PopupWindow implements View.OnClickListener {
         }
     }
 
+
 //    public static boolean isNumeric(String str){
 //        for (int i = str.length();--i>=0;){ if (!Character.isDigit(str.charAt(i))){ return false; }
 //        }
@@ -187,8 +200,6 @@ public class Calc extends PopupWindow implements View.OnClickListener {
             case R.id.chehui:
                 text.setText("");
                 break;
-
-            //case R.id.date1:
 
         }
     }

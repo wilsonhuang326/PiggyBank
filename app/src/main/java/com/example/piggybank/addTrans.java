@@ -38,7 +38,8 @@ public class addTrans extends AppCompatActivity{
     private TextView mDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-
+    PopupWindow mPopCalc;
+    private Calc mCalc = null;
 
     private Button expense_list, income_list;
     private int selectedPosition;
@@ -52,6 +53,10 @@ public class addTrans extends AppCompatActivity{
         //输入金额
         Calc calc = new Calc(this);
         mShuru = (Button) findViewById(R.id.shuru);
+         adapter = new CategoryWithNameAdapter(this);
+        mGridView = (GridView) findViewById(R.id.category_list_wName);
+        mGridView.setAdapter(adapter);
+        mCalc = new Calc(this);
         mShuru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +65,7 @@ public class addTrans extends AppCompatActivity{
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                         0,
                         0);
+
             }
         });
 
@@ -97,14 +103,14 @@ public class addTrans extends AppCompatActivity{
         expense_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.readByTypeFromCategoryTable(0);
+                adapter.readByTypeFromCategoryTable(CategoryType.EXPENSE);
             }
         });
 
         income_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.readByTypeFromCategoryTable(1);
+                adapter.readByTypeFromCategoryTable(CategoryType.INCOME);
             }
         });
         expense_list.callOnClick();

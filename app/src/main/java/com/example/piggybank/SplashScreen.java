@@ -36,63 +36,12 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        //开场
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
         finish();
 
 
-        /*
-        ImageView imageView=(ImageView)findViewById(R.id.imageView);
-        ImageButton imageButton=(ImageButton)findViewById(R.id.imageButton);
-
-
-*/
-        /*
-      SQLiteOpenHelper dbHelper = new MySQLiteHelper(this, null, null, 1);
-        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
-        //SQLiteDatabase dbReader = dbHelper.getReadableDatabase();
-
-        dbWriter.beginTransaction();
-
-
-//insert method 1:
-       dbWriter.execSQL("insert into " + MySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name', 'icon', 'type')");
-       // insert method 2
-
-     ContentValues cv = new ContentValues();
-         cv.put(MySQLiteHelper.FIELD_TYPE,"income");
-        cv.put(MySQLiteHelper.FIELD_NAME, "bus");
-        cv.put(MySQLiteHelper.FIELD_ICON,"bus.png");
-       dbWriter.insert(MySQLiteHelper.TABLE_NAME, null, cv);
-
-
-        //or
-            //dbWriter.insertOrThrow(MySQLiteHelper.TABLE_NAME, null, cv);
-
-
-
-
-        dbWriter.execSQL("insert into " + MySQLiteHelper.TABLE_NAME + " ( name, icon, type) values ('name', 'icon', 'type')");
-
-
-        //delete
-     //   dbWriter.execSQL("DELETE FROM "+ MySQLiteHelper.TABLE_NAME+" WHERE cid=1");
-       // dbWriter.delete(MySQLiteHelper.TABLE_NAME,"cid = 3",null);
-
-
-
-
-
-
-
-        dbWriter.setTransactionSuccessful();
-        dbWriter.endTransaction();
-
-
-        dbWriter.close();
-        //dbReader.close();
-        */
     }
 
 

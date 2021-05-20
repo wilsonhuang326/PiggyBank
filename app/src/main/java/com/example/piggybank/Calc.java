@@ -1,70 +1,95 @@
 package com.example.piggybank;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
+import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupMenu;
+import android.widget.DatePicker;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class Calc extends PopupWindow implements View.OnClickListener {
 
-    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9,
-            btnBackward, btnPlus, btnSubtract, btnMultiply, btnDivide, btnComp, btnPoint, btnDate;
+    //计算器
+    private View view;
+    Button btn0, btn1, btn2, btn3,
+  btn4, btn5, btn6, btn7, btn8, btn9,
+            btnBackward, btnPlus, btnSubtract, btnMultiply, btnDivide, btnComp, btnPoint;
+
+
 
     TextView text;
     String str = "";
     boolean clr;
-    private View mView;
-
     String money;
 
+    //日期
+    private TextView mDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
 
 
-    public Calc (Activity context){
+
+
+    public Calc(Activity context) {
+
+
         super(context);
-        LayoutInflater mInflater = (LayoutInflater) context
- .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mView = mInflater.inflate(R.layout.calculator_pop, null);
 
+        view =View.inflate(context,R.layout.calculator_pop,null);
+        setContentView(view);
         this.setWidth(ActionBar.LayoutParams.MATCH_PARENT);
-        setContentView(mView);
+        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
+//     private View mView;
+//     String money;
+//     public Calc (Activity context){
+//         super(context);
+//         LayoutInflater mInflater = (LayoutInflater) context
+//  .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//         mView = mInflater.inflate(R.layout.calculator_pop, null);
+
+//         this.setWidth(ActionBar.LayoutParams.MATCH_PARENT);
+//         setContentView(mView);
+  
         setTouchable(true);
         setOutsideTouchable(true);
         setFocusable(true);
         setBackgroundDrawable(new BitmapDrawable(context.getResources()));
-        getContentView().setFocusableInTouchMode(true);
-        getContentView().setFocusable(true);
-        btn0 = (Button) mView.findViewById(R.id.num0);
-        btn1 = (Button) mView.findViewById(R.id.num1);
-        btn2 = (Button) mView.findViewById(R.id.num2);
-        btn3 = (Button) mView.findViewById(R.id.num3);
-        btn4 = (Button) mView.findViewById(R.id.num4);
-        btn5 = (Button) mView.findViewById(R.id.num5);
-        btn6 = (Button) mView.findViewById(R.id.num6);
-        btn7 = (Button) mView.findViewById(R.id.num7);
-        btn8 = (Button) mView.findViewById(R.id.num8);
-        btn9 = (Button) mView.findViewById(R.id.num9);
-        btnBackward = (Button) mView.findViewById(R.id.chehui);
-        btnPlus = (Button) mView.findViewById(R.id.add);
-        btnSubtract = (Button) mView.findViewById(R.id.minus);
-        btnMultiply = (Button) mView.findViewById(R.id.mult);
-        btnDivide = (Button) mView.findViewById(R.id.div);
-        btnPoint = (Button) mView.findViewById(R.id.dot);
-        btnComp = (Button) mView.findViewById(R.id.comp);
-        btnDate = (Button) mView.findViewById(R.id.date);
 
-        text = (TextView) mView.findViewById(R.id.text);
+        btn0 = (Button) view.findViewById(R.id.num0);
+        btn1 = (Button) view.findViewById(R.id.num1);
+        btn2 = (Button) view.findViewById(R.id.num2);
+        btn3 = (Button) view.findViewById(R.id.num3);
+        btn4 = (Button) view.findViewById(R.id.num4);
+        btn5 = (Button) view.findViewById(R.id.num5);
+        btn6 = (Button) view.findViewById(R.id.num6);
+        btn7 = (Button) view.findViewById(R.id.num7);
+        btn8 = (Button) view.findViewById(R.id.num8);
+        btn9 = (Button) view.findViewById(R.id.num9);
+        btnBackward = (Button) view.findViewById(R.id.chehui);
+        btnPlus = (Button) view.findViewById(R.id.add);
+        btnSubtract = (Button) view.findViewById(R.id.minus);
+        btnMultiply = (Button) view.findViewById(R.id.mult);
+        btnDivide = (Button) view.findViewById(R.id.div);
+        btnPoint = (Button) view.findViewById(R.id.dot);
+        btnComp = (Button) view.findViewById(R.id.comp);
+
+
+        text = (TextView) view.findViewById(R.id.text);
+
 
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
@@ -84,7 +109,37 @@ public class Calc extends PopupWindow implements View.OnClickListener {
         btnDivide.setOnClickListener(this);
         btnPoint.setOnClickListener(this);
         btnComp.setOnClickListener(this);
-        btnDate.setOnClickListener(this);
+
+        //日期
+        mDate = view.findViewById(R.id.date1);
+        mDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(context,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                //Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = month + "/" + day + "/" + year;
+                mDate.setText(date);
+            }
+        };
 
 
     }
@@ -145,6 +200,7 @@ public class Calc extends PopupWindow implements View.OnClickListener {
             case R.id.chehui:
                 text.setText("");
                 break;
+
         }
     }
 

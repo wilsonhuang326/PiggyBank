@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -29,13 +30,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.Calendar;
 
-public class addTrans extends AppCompatActivity{
+public class addTrans extends AppCompatActivity {
 
 
     GridView mGridView;
-    Button mShuru;
-    //PopupWindow mPopCalc;
-    private TextView mDate;
+    Button amount_Button,date_Button;
+    EditText info_Button;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     PopupWindow mPopCalc;
@@ -44,6 +44,7 @@ public class addTrans extends AppCompatActivity{
     private Button expense_list, income_list;
     private int selectedPosition;
     private CategoryWithNameAdapter adapter;
+    int mYear, mMonth,mDay ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +53,14 @@ public class addTrans extends AppCompatActivity{
 
         //输入金额
         Calc calc = new Calc(this);
-        mShuru = (Button) findViewById(R.id.shuru);
-         adapter = new CategoryWithNameAdapter(this);
+        amount_Button = (Button) findViewById(R.id.trans_amount);
+        date_Button = (Button) findViewById(R.id.trans_date);
+        info_Button = (EditText) findViewById(R.id.trans_info);
+        adapter = new CategoryWithNameAdapter(this);
         mGridView = (GridView) findViewById(R.id.category_list_wName);
         mGridView.setAdapter(adapter);
         mCalc = new Calc(this);
-        mShuru.setOnClickListener(new View.OnClickListener() {
+        amount_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -69,23 +72,44 @@ public class addTrans extends AppCompatActivity{
             }
         });
 
-//        mDate = (TextView) findViewById(R.id.date1);
-//        mDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog dialog = new DatePickerDialog(addTrans.this,
-//                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-//                        mDateSetListener,
-//                        year,month,day);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
-//            }
-//        });
+        Calendar calendar = Calendar.getInstance();
+       mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        Log.d("year", String.valueOf(mYear));
+        Log.d("month", String.valueOf(mMonth));
+        Log.d("day", String.valueOf(mDay));
+        String date = mMonth+1 + "/" + mDay + "/" + mYear;
+        date_Button.setText(date);
+
+        date_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                DatePickerDialog dialog = new DatePickerDialog(addTrans.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        mYear,mMonth,mDay);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                //Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                mDay=day;
+                mMonth=month;
+                mYear=year;
+                String date = mMonth+1 + "/" + mDay + "/" + mYear;
+
+                date_Button.setText(date);
+            }
+        };
+
 
 
 
@@ -135,7 +159,5 @@ public class addTrans extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-//    public void getCategory(int listType) {
-//
-//    }
+
 }

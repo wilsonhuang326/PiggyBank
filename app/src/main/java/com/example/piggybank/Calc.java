@@ -191,11 +191,16 @@ public class Calc extends PopupWindow implements View.OnClickListener {
                 break;
             case R.id.comp:
                money=getResult(input, ((Button) v).getText().toString());
+               if (money.isEmpty()){
+                   money="0";
+               }
                 if (Double.parseDouble(money)%1!=0){
                     money =String.valueOf((double)Math.round(Double.parseDouble(money) * 100) / 100);
                 }
                 System.out.println("completed:"+money);
                 //text.setText(input + " " + ((Button)v).getText() + " ");
+                dismiss();
+
                 break;
             case R.id.chehui:
                 text.setText("");

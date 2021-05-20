@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/white"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/white_smoke">
+            >
 <!--            <EditText-->
 <!--                android:id="@+id/edit_text1"-->
 <!--                android:layout_width="0dp"-->
@@ -57,7 +58,7 @@
                 android:id="@+id/div" android:text="÷"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+               />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -65,7 +66,7 @@
                 android:id="@+id/mult" android:text="×"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -73,7 +74,7 @@
                 android:id="@+id/minus" android:text="-"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -81,7 +82,7 @@
                 android:id="@+id/add" android:text="+"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
         </LinearLayout>
 
 
@@ -100,7 +101,7 @@
                 android:id="@+id/num1" android:text="1"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -108,7 +109,7 @@
                 android:id="@+id/num2" android:text="2"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,7 +117,7 @@
                 android:id="@+id/num3" android:text="3"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -124,7 +125,7 @@
                 android:id="@+id/huobi" android:text="$￥"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
 
         </LinearLayout>
 
@@ -143,7 +144,7 @@
                 android:id="@+id/num4" android:text="4"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -151,7 +152,7 @@
                 android:id="@+id/num5" android:text="5"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -159,7 +160,7 @@
                 android:id="@+id/num6" android:text="6"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -167,7 +168,7 @@
                 android:id="@+id/dot" android:text="."
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
 
         </LinearLayout>
 
@@ -187,7 +188,7 @@
                 android:id="@+id/num7" android:text="7"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -195,7 +196,7 @@
                 android:id="@+id/num8" android:text="8"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -203,7 +204,7 @@
                 android:id="@+id/num9" android:text="9"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -211,7 +212,7 @@
                 android:id="@+id/chehui" android:text="撤回"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
 
         </LinearLayout>
 
@@ -230,7 +231,7 @@
                 android:text=""
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -238,7 +239,7 @@
                 android:id="@+id/num0" android:text="0"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -246,7 +247,7 @@
                 android:text=""
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke"/>
+                />
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -254,7 +255,7 @@
                 android:id="@+id/comp" android:text="完成"
                 android:layout_marginTop="-8dp"
                 android:layout_marginBottom="-8dp"
-                android:background="@color/white_smoke" />
+                 />
 
         </LinearLayout>
 

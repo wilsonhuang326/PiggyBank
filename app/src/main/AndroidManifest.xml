@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PiggyBank">
-        <activity android:name=".addTrans"></activity>
+        <activity android:name=".AddTrans"></activity>
 
         <activity android:name=".CategoryManagement"
             android:label="分类管理"/>

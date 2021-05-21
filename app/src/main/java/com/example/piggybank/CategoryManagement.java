@@ -43,6 +43,7 @@ public class CategoryManagement extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override

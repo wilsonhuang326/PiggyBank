@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 public class SplashScreen extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +39,7 @@ public class SplashScreen extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
         finish();
+
 
 
     }

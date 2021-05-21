@@ -1,25 +1,14 @@
 package com.example.piggybank;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CategoryWithNameAdapter extends BaseAdapter {
@@ -27,15 +16,15 @@ public class CategoryWithNameAdapter extends BaseAdapter {
     private ArrayList<Category> categoryArray;
     private String folderPath = "Category";
     private int selectedPosition;
-    private CategorySQLiteHelper categorySQLiteHelper;
+    private MySQLiteHelper mySQLiteHelper;
 
     public CategoryWithNameAdapter() {
     }
 
     public CategoryWithNameAdapter(Context mContext) {
         this.mContext = mContext;
-        categorySQLiteHelper = new CategorySQLiteHelper(mContext, null, null, 1);
-        categoryArray = categorySQLiteHelper.readAllFromCategoryTable();
+        mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
+        categoryArray = mySQLiteHelper.readAllFromCategoryTable();
     }
 
     @Override
@@ -50,7 +39,7 @@ public class CategoryWithNameAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return categoryArray.get(position).getId();
     }
 
     @Override
@@ -79,12 +68,12 @@ public class CategoryWithNameAdapter extends BaseAdapter {
     }
 
     public void readAllFromCategoryTable() {
-        categoryArray = categorySQLiteHelper.readAllFromCategoryTable();
+        categoryArray = mySQLiteHelper.readAllFromCategoryTable();
         notifyDataSetChanged();
     }
 
     public void readByTypeFromCategoryTable(CategoryType listType) {
-        categoryArray = categorySQLiteHelper.readByTypeFromCategoryTable(listType);
+        categoryArray = mySQLiteHelper.readByTypeFromCategoryTable(listType);
         notifyDataSetChanged();
 
     }

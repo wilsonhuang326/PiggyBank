@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,11 +65,11 @@ public class Calc extends PopupWindow implements View.OnClickListener {
 //         this.setWidth(ActionBar.LayoutParams.MATCH_PARENT);
 //         setContentView(mView);
   
-        setTouchable(true);
+//        setTouchable(true);
+//     setOutsideTouchable(true);
+//        setFocusable(true);
+//        setBackgroundDrawable(new BitmapDrawable(context.getResources()));
         setOutsideTouchable(true);
-        setFocusable(true);
-        setBackgroundDrawable(new BitmapDrawable(context.getResources()));
-
         btn0 = (Button) view.findViewById(R.id.num0);
         btn1 = (Button) view.findViewById(R.id.num1);
         btn2 = (Button) view.findViewById(R.id.num2);
@@ -177,20 +178,25 @@ public class Calc extends PopupWindow implements View.OnClickListener {
             case R.id.num8:
             case R.id.num9:
             case R.id.dot:
-
                 text.setText(input + ((Button) v).getText());
+                String[] str = text.getText().toString().split(" ");
+                Log.d("str length", String.valueOf(str.length));
+                if (str.length==1){
+                money=text.getText().toString();}else {
+                    money=str[0];
+                }
                 break;
             case R.id.minus:
             case R.id.add:
             case R.id.div:
             case R.id.mult:
 
-                getResult(input, ((Button) v).getText().toString());
+                money=getResult(input, " "+((Button) v).getText().toString()+" ");
 
                 //text.setText(input + " " + ((Button)v).getText() + " ");
                 break;
             case R.id.comp:
-               money=getResult(input, ((Button) v).getText().toString());
+               money=getResult(input, "");
                if (money.isEmpty()){
                    money="0";
                }
@@ -220,20 +226,20 @@ public class Calc extends PopupWindow implements View.OnClickListener {
 
             if (str.length == 1) {//一个数
                 if (Double.parseDouble(input) % 1 == 0) {
-                    text.setText(Integer.parseInt(input) + " " + op + " ");
+                    text.setText(Integer.parseInt(input) + op);
                     strResult = String.valueOf(Integer.parseInt(input));
                 } else {
-                    text.setText(input + " " + op + " ");
+                    text.setText(input + op);
                     strResult = input;
                 }
 
             } else if (str.length==2){//one number one operator
                 double result = Double.parseDouble(str[0]);
                 if (result % 1 == 0) {//Integer
-                    text.setText((int) result + " " + op + " ");
+                    text.setText((int) result + op);
                     strResult= String.valueOf((int) result);
                 } else {//decimal
-                    text.setText(result + " " + op + " ");
+                    text.setText(result + op);
                     strResult= String.valueOf(result);
                 }
             }
@@ -244,10 +250,10 @@ public class Calc extends PopupWindow implements View.OnClickListener {
                     case "+":
                         result = Double.parseDouble(str[0]) + Double.parseDouble(str[2]);
                         if (result % 1 == 0) {//Integer
-                            text.setText((int) result + " " + op + " ");
+                            text.setText((int) result + op);
                             strResult= String.valueOf((int) result);
                         } else {//decimal
-                            text.setText(result + " " + op + " ");
+                            text.setText(result + op);
                             strResult= String.valueOf(result);
                         }
                         break;
@@ -255,10 +261,10 @@ public class Calc extends PopupWindow implements View.OnClickListener {
                     case "-":
                         result = Double.parseDouble(str[0]) - Double.parseDouble(str[2]);
                         if (result % 1 == 0) {//Integer
-                            text.setText((int) result + " " + op + " ");
+                            text.setText((int) result + op);
                             strResult= String.valueOf((int) result);
                         } else {//decimal
-                            text.setText(result + " " + op + " ");
+                            text.setText(result + op);
                             strResult= String.valueOf(result);
                         }
                         break;
@@ -267,10 +273,10 @@ public class Calc extends PopupWindow implements View.OnClickListener {
                     case "×":
                         result = Double.parseDouble(str[0]) * Double.parseDouble(str[2]);
                         if (result % 1 == 0) {//Integer
-                            text.setText((int) result + " " + op + " ");
+                            text.setText((int) result + op);
                             strResult= String.valueOf((int) result);
                         } else {//decimal
-                            text.setText(result + " " + op + " ");
+                            text.setText(result + op);
                             strResult= String.valueOf(result);
                         }
                         break;
@@ -280,10 +286,10 @@ public class Calc extends PopupWindow implements View.OnClickListener {
                     case "÷":
                         result = Double.parseDouble(str[0]) / Double.parseDouble(str[2]);
                         if (result % 1 == 0) {//Integer
-                            text.setText((int) result + " " + op + " ");
+                            text.setText((int) result + op);
                             strResult= String.valueOf((int) result);
                         } else {//decimal
-                            text.setText(result + " " + op + " ");
+                            text.setText(result + op);
                             strResult= String.valueOf(result);
                         }
                         break;
@@ -295,4 +301,10 @@ public class Calc extends PopupWindow implements View.OnClickListener {
         }
         return strResult;
     }
+
+    public String getResult(){
+        return money;
+    }
+
+
 }

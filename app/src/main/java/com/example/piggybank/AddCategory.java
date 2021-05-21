@@ -2,11 +2,7 @@ package com.example.piggybank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -101,13 +97,13 @@ public class AddCategory extends AppCompatActivity {
         if (name.isEmpty()) {
             Log.d("error:", "getCategoryName");
         } else {
-            CategorySQLiteHelper categorySQLiteHelper= new CategorySQLiteHelper(this, null, null, 1);
+            MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this, null, null, 1);
             if (Action.INSERT.equalsType(action)) {
                // addToCategoryTable(path, type, name);
-                categorySQLiteHelper.addToCategoryTable(path,type,name);
+                mySQLiteHelper.addToCategoryTable(path,type,name);
             } else if (Action.UPDATE.equalsType(action)) {
                 String cid = getIntent().getExtras().getString("cid");
-                categorySQLiteHelper.updateCategoryTable(cid,path, type, name);
+                mySQLiteHelper.updateCategoryTable(cid,path, type, name);
             }
         }
 
@@ -121,9 +117,9 @@ public class AddCategory extends AppCompatActivity {
     private String monitoringRadioGrop() {
         int checked = mRadioGroup.getCheckedRadioButtonId();
         if (checked == R.id.input_expense) {
-            return "expense";
+            return CategoryType.EXPENSE.toString();
         } else if (checked == R.id.input_income) {
-            return "income";
+            return CategoryType.INCOME.toString();
         }
         return null;
 

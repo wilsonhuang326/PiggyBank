@@ -1,47 +1,30 @@
 package com.example.piggybank;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Category> categoryArray;
     private String folderPath = "Category";
-    private CategorySQLiteHelper categorySQLiteHelper;
+    private MySQLiteHelper mySQLiteHelper;
 
     public CategoryAdapter() {
     }
 
     public CategoryAdapter(Context mContext) {
         this.mContext = mContext;
-        categorySQLiteHelper = new CategorySQLiteHelper(mContext, null, null, 1);
-        categoryArray = categorySQLiteHelper.readAllFromCategoryTable();
+        mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
+        categoryArray = mySQLiteHelper.readAllFromCategoryTable();
     }
 
     @Override
@@ -98,8 +81,8 @@ public class CategoryAdapter extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategorySQLiteHelper categorySQLiteHelper = new CategorySQLiteHelper(mContext, null, null, 1);
-                categoryArray = categorySQLiteHelper.deleteFromDB(categoryArray.get(position).getId());
+                MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
+                categoryArray = mySQLiteHelper.deleteFromCategoryTable(categoryArray.get(position).getId());
                 notifyDataSetChanged();
             }
         });
@@ -109,7 +92,7 @@ public class CategoryAdapter extends BaseAdapter {
 
 
     public void readAllFromCategoryTable() {
-        categoryArray = categorySQLiteHelper.readAllFromCategoryTable();
+        categoryArray = mySQLiteHelper.readAllFromCategoryTable();
         notifyDataSetChanged();
 
     }

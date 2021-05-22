@@ -34,7 +34,7 @@ public class Calc extends PopupWindow implements View.OnClickListener {
     TextView text;
     String str = "";
     boolean clr;
-    String money;
+    String money="0";
 
     //日期
     private TextView mDate;
@@ -110,7 +110,7 @@ public class Calc extends PopupWindow implements View.OnClickListener {
         btnDivide.setOnClickListener(this);
         btnPoint.setOnClickListener(this);
         btnComp.setOnClickListener(this);
-
+        
         //日期
         mDate = view.findViewById(R.id.date1);
         mDate.setOnClickListener(new View.OnClickListener() {

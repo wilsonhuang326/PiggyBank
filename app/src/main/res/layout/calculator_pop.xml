@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="20dp"
-                android:hint="输入金额"
+                android:hint="0"
                 android:gravity="center"
                 android:layout_marginRight="10dp"
                 android:layout_weight="8"/>

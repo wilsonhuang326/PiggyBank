@@ -40,9 +40,9 @@ public class AddTrans extends AppCompatActivity {
     private int selectedPosition, selectedCID;
     private CategoryWithNameAdapter mAdapter;
     int mYear, mMonth, mDay;
-    String mDate;
     SimpleDateFormat dateFormat;
-    Date mmDate;
+    Date mDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +82,8 @@ public class AddTrans extends AppCompatActivity {
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH);
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
-        mmDate = calendar.getTime();
-        String ymd = dateFormat.format(mmDate);
+        mDate = calendar.getTime();
+        String ymd = dateFormat.format(mDate);
         Log.d("getTIme", ymd);
         date_Button.setText(ymd);
 
@@ -107,66 +107,20 @@ public class AddTrans extends AppCompatActivity {
                 //Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
 
-
-
+                mDay = day;
+                mMonth = month;
+                mYear = year;
                 calendar.set(year, month, day);
-                mmDate=calendar.getTime();
+                mDate = calendar.getTime();
                 Log.d("getTIme", String.valueOf(calendar.getTime()));
 
-                String ymd = dateFormat.format(mmDate);
+                String ymd = dateFormat.format(mDate);
                 date_Button.setText(ymd);
 
                 Log.d("getDate", ymd);
 
             }
         };
-
-
-//        adapter = new CategoryWithNameAdapter(this);
-//        Log.d("CNM1", String.valueOf(adapter.getCount()));
-//        int i=0;
-//        while (i<adapter.getCount()){
-//            i++;
-//            Log.d("item"+i, String.valueOf(adapter.getItem(i-1).toString()));
-//
-//        }
-//        Log.d("selectedPosition", String.valueOf(selectedPosition));
-//        Log.d("citem", String.valueOf(adapter.getItem(selectedPosition).toString()));
-//
-//
-//
-//
-//
-//        adapter.readByTypeFromCategoryTable(CategoryType.EXPENSE);
-//
-//
-//        Log.d("CNM2", String.valueOf(adapter.getCount()));
-//         i=0;
-//        while (i<adapter.getCount()){
-//            i++;
-//            Log.d("item"+i, String.valueOf(adapter.getItem(i-1).toString()));
-//
-//        }
-//        Log.d("selectedPosition", String.valueOf(selectedPosition));
-//        Log.d("citem", String.valueOf(adapter.getItem(selectedPosition).toString()));
-//
-//
-//
-//
-//
-//
-//        adapter.readByTypeFromCategoryTable(CategoryType.INCOME);
-//
-//
-//        Log.d("CNM3", String.valueOf(adapter.getCount()));
-//        i=0;
-//        while (i<adapter.getCount()){
-//            i++;
-//            Log.d("item"+i, String.valueOf(adapter.getItem(i-1).toString()));
-//
-//        }
-//        Log.d("selectedPosition", String.valueOf(selectedPosition));
-//        Log.d("citem", String.valueOf(adapter.getItem(selectedPosition).toString()));
 
 
         mGridView = (GridView) findViewById(R.id.category_list_wName);
@@ -216,7 +170,6 @@ public class AddTrans extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
@@ -236,7 +189,7 @@ public class AddTrans extends AppCompatActivity {
 
                 // createCategory();
                 createTransactions();
-                 finish();
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -245,21 +198,18 @@ public class AddTrans extends AppCompatActivity {
     private void createTransactions() {
         System.out.println("created");
 
-        String ymd = dateFormat.format(mmDate);
+        String ymd = dateFormat.format(mDate);
 
 //        Log.d("citem", String.valueOf(selectedCID));
 //        Log.d("date", ymd);
 //        Log.d("amount", amount_Button.getText().toString());
 //        Log.d("text", info_Button.getText().toString());
         MySQLiteHelper dbHelper = new MySQLiteHelper(this, null, null, 1);
-        dbHelper.addToTransactionTable(selectedCID, Double.parseDouble(amount_Button.getText().toString()),ymd,info_Button.getText().toString());
+        dbHelper.addToTransactionTable(selectedCID, Double.parseDouble(amount_Button.getText().toString()), ymd, info_Button.getText().toString());
         //        dbHelper.addToTransactionTable(5,5.55,"2021-01-01","notes5");
 
 
     }
-
-
-
 
 
     @Override
@@ -299,7 +249,6 @@ public class AddTrans extends AppCompatActivity {
 
         return false;
     }
-
 
 
 }

@@ -27,7 +27,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -35,12 +39,12 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        //开场
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
         finish();
 
-
+//        MySQLiteHelper mySQLiteHelper=new MySQLiteHelper(this,null,null,1);
+//        mySQLiteHelper.readAllFromTransactionTable();
 
     }
 

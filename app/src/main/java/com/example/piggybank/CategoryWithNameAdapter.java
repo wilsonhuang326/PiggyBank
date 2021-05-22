@@ -39,7 +39,7 @@ public class CategoryWithNameAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return categoryArray.get(position).getId();
+        return categoryArray.get(position).getCid();
     }
 
     @Override

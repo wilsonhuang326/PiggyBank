@@ -48,7 +48,6 @@ public class CategoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
 
-        LinearLayout mLinearLayout = (LinearLayout) convertView.findViewById(R.id.category_background);
         ImageView icon = (ImageView) convertView.findViewById(R.id.category_image);
         TextView type = (TextView) convertView.findViewById(R.id.category_type);
         TextView name = (TextView) convertView.findViewById(R.id.category_name);
@@ -71,7 +70,7 @@ public class CategoryAdapter extends BaseAdapter {
                 System.out.println("edit");
                 Intent intent = new Intent(mContext.getApplicationContext(), AddCategory.class);
                 intent.putExtra("action", "update");
-                intent.putExtra("cid", String.valueOf(categoryArray.get(position).getId()));
+                intent.putExtra("cid", String.valueOf(categoryArray.get(position).getCid()));
                 intent.putExtra("cname", categoryArray.get(position).getName());
                 intent.putExtra("cpath", categoryArray.get(position).getIconPath());
                 intent.putExtra("ctype", categoryArray.get(position).getType());
@@ -82,7 +81,7 @@ public class CategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
-                categoryArray = mySQLiteHelper.deleteFromCategoryTable(categoryArray.get(position).getId());
+                categoryArray = mySQLiteHelper.deleteFromCategoryTable(categoryArray.get(position).getCid());
                 notifyDataSetChanged();
             }
         });

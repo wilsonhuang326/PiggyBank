@@ -1,7 +1,7 @@
 package com.example.piggybank;
 
 public class Category {
-    private int id;
+    private int cid;
     private String name;
     private String iconPath;
     private String type;
@@ -16,18 +16,18 @@ public class Category {
     }
 
     public Category(int id, String name, String iconPath, String type) {
-        this.id = id;
+        this.cid = id;
         this.name = name;
         this.iconPath = iconPath;
         this.type = type;
     }
 
-    public int getId() {
-        return id;
+    public int getCid() {
+        return cid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCid(int id) {
+        this.cid = id;
     }
 
     public String getName() {
@@ -57,7 +57,7 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
+                "cid=" + cid +
                 ", name='" + name + '\'' +
                 ", iconPath='" + iconPath + '\'' +
                 ", type='" + type + '\'' +

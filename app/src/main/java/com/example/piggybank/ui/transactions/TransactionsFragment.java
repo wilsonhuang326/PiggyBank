@@ -45,4 +45,9 @@ public class TransactionsFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.readAllFromCategoryTable();
+    }
 }

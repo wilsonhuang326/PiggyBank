@@ -62,5 +62,9 @@ public class TransactionAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void readAllFromCategoryTable() {
+        transactionArray = mySQLiteHelper.readAllFromTransactionTable();
+        notifyDataSetChanged();
 
+    }
 }

@@ -123,23 +123,16 @@ public class AddTrans extends AppCompatActivity {
         };
 
 
-        mGridView = (GridView) findViewById(R.id.category_list_wName);
-        mGridView.setAdapter(mAdapter);
-
-        CategoryWithNameAdapter adapter = new CategoryWithNameAdapter(this);
-        mGridView = (GridView) findViewById(R.id.category_list_wName);
-        mGridView.setAdapter(adapter);
-
         expense_list = (Button) findViewById(R.id.expense_category_list);
         income_list = (Button) findViewById(R.id.income_category_list);
         expense_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.readByTypeFromCategoryTable(CategoryType.EXPENSE);
+                mAdapter.readByTypeFromCategoryTable(CategoryType.EXPENSE);
 
-                adapter.setSelectedPosition(0);
+                mAdapter.setSelectedPosition(0);
                 selectedPosition = 0;
-                selectedCID = (int) adapter.getItemId(selectedPosition);
+                selectedCID = (int) mAdapter.getItemId(selectedPosition);
 
             }
         });
@@ -148,11 +141,11 @@ public class AddTrans extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                adapter.readByTypeFromCategoryTable(CategoryType.INCOME);
+                mAdapter.readByTypeFromCategoryTable(CategoryType.INCOME);
 
-                adapter.setSelectedPosition(0);
+                mAdapter.setSelectedPosition(0);
                 selectedPosition = 0;
-                selectedCID = (int) adapter.getItemId(selectedPosition);
+                selectedCID = (int) mAdapter.getItemId(selectedPosition);
 
 
             }
@@ -161,9 +154,9 @@ public class AddTrans extends AppCompatActivity {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                adapter.setSelectedPosition(position);
+                mAdapter.setSelectedPosition(position);
                 selectedPosition = position;
-                selectedCID = (int) adapter.getItemId(position);
+                selectedCID = (int) mAdapter.getItemId(position);
 
 
             }

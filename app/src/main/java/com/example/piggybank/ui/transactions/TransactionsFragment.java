@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.piggybank.CategoryAdapter;
+import com.example.piggybank.MonthlyTransAdapter;
 import com.example.piggybank.R;
 import com.example.piggybank.AddTrans;
 import com.example.piggybank.TransactionAdapter;
@@ -20,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class TransactionsFragment extends Fragment {
     private ListView mListView;
 
-    private TransactionAdapter adapter;
+private MonthlyTransAdapter adapter1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,10 +29,10 @@ public class TransactionsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_transactions, container, false);
 
 
-        adapter = new TransactionAdapter(getActivity());
+        adapter1 = new MonthlyTransAdapter(getActivity());
 
         mListView=(ListView)root.findViewById(R.id.transaction_list);
-        mListView.setAdapter(adapter);
+        mListView.setAdapter(adapter1);
         FloatingActionButton button1 = root.findViewById(R.id.addingTrans);
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +49,6 @@ public class TransactionsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        adapter.readAllFromCategoryTable();
+        adapter1.readAllFromCategoryTable();
     }
 }

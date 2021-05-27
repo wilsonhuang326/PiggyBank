@@ -259,6 +259,84 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<String> getTransDate(){
+
+
+        ArrayList<String> transactionArray;
+        transactionArray=new ArrayList<>();
+        SQLiteOpenHelper dbHelper = new MySQLiteHelper(context, null, null, 1);
+        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
+        Cursor cursor = null;
+        cursor =dbWriter.query(true,MySQLiteHelper.TRANSACTION_TABLE,
+                new String[]{MySQLiteHelper.FIELD_DATE},
+                null,null,null,null,MySQLiteHelper.FIELD_DATE+" DESC",null);
+
+//        Cursor cursor1 = dbWriter.query(true, "gb", new String[]{"_id","cities"}, null, null, "cities", null, null, null, null);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        while (cursor.moveToNext()) {
+
+            String dateString = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.FIELD_DATE));
+
+
+
+//            Transaction cc=new Transaction(tid,cid,amount, date,text,name,icon,  type);
+            transactionArray.add(dateString);
+
+            Log.d("date string",dateString);
+
+        }
+        Log.d("date array size", String.valueOf(transactionArray.size()));
+        cursor.close();
+
+        return transactionArray;
+    }
+
+    public ArrayList<Transaction> readByDateFromTransactionTable(String date){
+
+
+        ArrayList<Transaction> transactionArray;
+        transactionArray=new ArrayList<>();
+        SQLiteOpenHelper dbHelper = new MySQLiteHelper(context, null, null, 1);
+        SQLiteDatabase dbWriter = dbHelper.getWritableDatabase();
+        Cursor cursor = null;
+        cursor =dbWriter.query(MySQLiteHelper.CATEGORY_TABLE+" NATURAL JOIN "+MySQLiteHelper.TRANSACTION_TABLE,
+                new String[]{MySQLiteHelper.FIELD_TID,MySQLiteHelper.FIELD_AMOUNT,MySQLiteHelper.FIELD_DATE,MySQLiteHelper.FIELD_TEXT,MySQLiteHelper.FIELD_CID, MySQLiteHelper.FIELD_NAME, MySQLiteHelper.FIELD_ICON, MySQLiteHelper.FIELD_TYPE},
+                MySQLiteHelper.FIELD_DATE+" = ?",new String[]{date},null,null,null);
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        while (cursor.moveToNext()) {
+            int tid = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.FIELD_TID));
+            double amount = cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.FIELD_AMOUNT));
+            String dateString = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.FIELD_DATE));
+            String text = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.FIELD_TEXT));
+
+            int cid = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.FIELD_CID));
+            String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.FIELD_NAME));
+            String icon = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.FIELD_ICON));
+            String type = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.FIELD_TYPE));
+
+            Date mDate=null;
+            try {
+                mDate = dateFormat.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Transaction cc=new Transaction(tid,cid,amount, mDate,text,name,icon,  type);
+            transactionArray.add(cc);
+
+            Log.d("HUANG",cc.toString());
+
+        }
+        Log.d("ARRAYSIZE", String.valueOf(transactionArray.size()));
+        cursor.close();
+
+        return transactionArray;
+    }
 
 //    MySQLiteHelper dbHelper = new MySQLiteHelper(this, null, null, 1);
 //        dbHelper.addToTransactionTable(1,1.1,"2021-01-01","notes1");

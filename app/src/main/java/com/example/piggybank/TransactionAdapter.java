@@ -1,6 +1,7 @@
 package com.example.piggybank;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,13 +16,17 @@ public class TransactionAdapter extends BaseAdapter {
     private ArrayList<Transaction> transactionArray;
     private String folderPath = "Category";
     private MySQLiteHelper mySQLiteHelper;
-    public TransactionAdapter(Context mContext) {
+//    public TransactionAdapter(Context mContext) {
+//        this.mContext = mContext;
+//        mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
+//        transactionArray = mySQLiteHelper.readAllFromTransactionTable();
+//    }
+    public TransactionAdapter(Context mContext,String date) {
         this.mContext = mContext;
-
         mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
-        transactionArray = mySQLiteHelper.readAllFromTransactionTable();
-    }
+        transactionArray = mySQLiteHelper.readByDateFromTransactionTable(date);
 
+    }
     @Override
     public int getCount() {
         return transactionArray.size();
@@ -56,7 +61,8 @@ public class TransactionAdapter extends BaseAdapter {
         String iconPath=transactionArray.get(position).getIconPath();
         icon.setImageBitmap(assetsHelper.getBitmapFromAsset(iconPath));
         amount.setText(String.valueOf(transactionArray.get(position).getAmount()));
-
+//
+//        Log.d("test date", String.valueOf(position));
 
 
         return convertView;
@@ -67,4 +73,5 @@ public class TransactionAdapter extends BaseAdapter {
         notifyDataSetChanged();
 
     }
+
 }

@@ -2,7 +2,9 @@ package com.example.piggybank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class AddCategory extends AppCompatActivity {
     private GridView mGridView;
@@ -22,6 +25,7 @@ public class AddCategory extends AppCompatActivity {
     private int selectedPosition;
     private String action;
     private IconAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +37,7 @@ public class AddCategory extends AppCompatActivity {
         mGridView = (GridView) findViewById(R.id.icon_list);
 
 
-         adapter = new IconAdapter(this);
+        adapter = new IconAdapter(this);
         mGridView.setAdapter(adapter);
         action = getIntent().getExtras().getString("action");
         Log.e("after", action);
@@ -69,18 +73,25 @@ public class AddCategory extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_done:
+                if (getCategoryName().isEmpty()) {
+                    Toast.makeText(AddCategory.this, "请输入分类名。",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    if (Action.UPDATE.equalsType(action)) {
+                        updateCategory();
+                    } else if (Action.INSERT.equalsType(action)) {
+                        createCategory();
 
-                createCategory();
-
-                finish();
-                break;
+                    }
+                    break;
+                }
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void setInput(){
+    private void setInput() {
         mEditText.setText(getIntent().getExtras().getString("cname"));
-        String path=getIntent().getExtras().getString("cpath");
+        String path = getIntent().getExtras().getString("cpath");
         selectedPosition = adapter.setSelectedPosition(path);
 
         String type = getIntent().getExtras().getString("ctype");
@@ -90,6 +101,22 @@ public class AddCategory extends AppCompatActivity {
             mRadioGroup.check(R.id.input_income);
         }
     }
+
+    private void updateCategory() {
+        new AlertDialog.Builder(this)
+                .setMessage("确定要修改这个分类吗")
+                .setNegativeButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        createCategory();
+                        Toast.makeText(AddCategory.this, "修改完成。",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setPositiveButton("否", null)
+                .show();
+    }
+
     private void createCategory() {
         String path = getIconPath();
         String type = monitoringRadioGrop();
@@ -99,14 +126,15 @@ public class AddCategory extends AppCompatActivity {
         } else {
             MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this, null, null, 1);
             if (Action.INSERT.equalsType(action)) {
-               // addToCategoryTable(path, type, name);
-                mySQLiteHelper.addToCategoryTable(path,type,name);
+                // addToCategoryTable(path, type, name);
+                mySQLiteHelper.addToCategoryTable(path, type, name);
             } else if (Action.UPDATE.equalsType(action)) {
                 String cid = getIntent().getExtras().getString("cid");
-                mySQLiteHelper.updateCategoryTable(cid,path, type, name);
+                mySQLiteHelper.updateCategoryTable(cid, path, type, name);
             }
         }
 
+        finish();
 
     }
 
@@ -128,9 +156,6 @@ public class AddCategory extends AppCompatActivity {
     private String getCategoryName() {
         return String.valueOf(mEditText.getText());
     }
-
-
-
 
 
     @Override

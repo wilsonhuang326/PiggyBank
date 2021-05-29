@@ -2,8 +2,10 @@ package com.example.piggybank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -17,11 +19,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.util.SparseIntArray;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,11 +47,40 @@ public class SplashScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
 
+//        Button button=(Button)findViewById(R.id.testB);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDeleteCategoryDialog();
+//            }
+//        });
 //        MySQLiteHelper mySQLiteHelper=new MySQLiteHelper(this,null,null,1);
 //        mySQLiteHelper.readAllFromTransactionTable();
 
     }
 
+    private void showDeleteCategoryDialog(){
+
+        //        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+//        new AlertDialog.Builder(this)
+//                .setMessage("确定要删除这个分类吗")
+//                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(SplashScreen.this, "yes",
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(SplashScreen.this, "no",
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//                .show();
+    }
 
 
 }

@@ -16,17 +16,19 @@ public class TransactionAdapter extends BaseAdapter {
     private ArrayList<Transaction> transactionArray;
     private String folderPath = "Category";
     private MySQLiteHelper mySQLiteHelper;
-//    public TransactionAdapter(Context mContext) {
+
+    //    public TransactionAdapter(Context mContext) {
 //        this.mContext = mContext;
 //        mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
 //        transactionArray = mySQLiteHelper.readAllFromTransactionTable();
 //    }
-    public TransactionAdapter(Context mContext,String date) {
+    public TransactionAdapter(Context mContext, String date) {
         this.mContext = mContext;
         mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
         transactionArray = mySQLiteHelper.readByDateFromTransactionTable(date);
 
     }
+
     @Override
     public int getCount() {
         return transactionArray.size();
@@ -57,8 +59,8 @@ public class TransactionAdapter extends BaseAdapter {
         typename.setText(transactionArray.get(position).getName());
 
         notes.setText(transactionArray.get(position).getText());
-        AssetsHelper assetsHelper=new AssetsHelper(mContext,folderPath);
-        String iconPath=transactionArray.get(position).getIconPath();
+        AssetsHelper assetsHelper = new AssetsHelper(mContext, folderPath);
+        String iconPath = transactionArray.get(position).getIconPath();
         icon.setImageBitmap(assetsHelper.getBitmapFromAsset(iconPath));
         amount.setText(String.valueOf(transactionArray.get(position).getAmount()));
 //
@@ -72,6 +74,27 @@ public class TransactionAdapter extends BaseAdapter {
         transactionArray = mySQLiteHelper.readAllFromTransactionTable();
         notifyDataSetChanged();
 
+    }
+
+    public double getExpenseTotal() {
+
+        double total = 0;
+        for (Transaction transaction : transactionArray) {
+            if (CategoryType.EXPENSE.equalsType(transaction.getType())) {
+                total += transaction.getAmount();
+            }
+        }
+        return total;
+    }
+
+    public double getIncomeTotal() {
+        double total = 0;
+        for (Transaction transaction : transactionArray) {
+            if (CategoryType.INCOME.equalsType(transaction.getType())) {
+                total += transaction.getAmount();
+            }
+        }
+        return total;
     }
 
 }

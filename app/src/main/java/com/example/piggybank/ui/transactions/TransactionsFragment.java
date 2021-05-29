@@ -21,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class TransactionsFragment extends Fragment {
     private ListView mListView;
 
-private MonthlyTransAdapter adapter1;
+private MonthlyTransAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,10 +29,10 @@ private MonthlyTransAdapter adapter1;
         View root = inflater.inflate(R.layout.fragment_transactions, container, false);
 
 
-        adapter1 = new MonthlyTransAdapter(getActivity());
+        adapter = new MonthlyTransAdapter(getActivity());
 
         mListView=(ListView)root.findViewById(R.id.transaction_list);
-        mListView.setAdapter(adapter1);
+        mListView.setAdapter(adapter);
         FloatingActionButton button1 = root.findViewById(R.id.addingTrans);
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +49,6 @@ private MonthlyTransAdapter adapter1;
     @Override
     public void onResume() {
         super.onResume();
-        adapter1.readAllFromCategoryTable();
+        adapter.readAllFromCategoryTable();
     }
 }

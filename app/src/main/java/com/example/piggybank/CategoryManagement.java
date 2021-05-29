@@ -33,6 +33,15 @@ public class CategoryManagement extends AppCompatActivity {
         mListView.setAdapter(adapter);
         addCategoryActivityButton=(Button) findViewById(R.id.go_to_add_category);
 
+
+//        System.out.println("edit");
+//        Intent intent = new Intent(CategoryManagement.this.getApplicationContext(), AddCategory.class);
+//        intent.putExtra("action", "update");
+//        intent.putExtra("cid", ((Category)mListView.getItemAtPosition(position)).getCid());
+//        intent.putExtra("cname", ((Category)mListView.getItemAtPosition(position)).getName());
+//        intent.putExtra("cpath", ((Category)mListView.getItemAtPosition(position)).getIconPath());
+//        intent.putExtra("ctype", ((Category)mListView.getItemAtPosition(position)).getType());
+//        CategoryManagement.this.startActivity(intent);
         addCategoryActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

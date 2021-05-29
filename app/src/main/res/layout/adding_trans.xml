@@ -58,7 +58,7 @@
                 android:id="@+id/trans_amount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="输入金额"
+                android:text="0"
                 android:layout_weight="1"
                 />
 

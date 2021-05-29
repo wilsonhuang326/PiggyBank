@@ -1,14 +1,16 @@
 package com.example.piggybank;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = View.inflate(mContext, R.layout.activity_category_adapter, null);
+        convertView = View.inflate(mContext, R.layout.item_category_management, null);
 
         ImageView icon = (ImageView) convertView.findViewById(R.id.category_image);
         TextView type = (TextView) convertView.findViewById(R.id.category_type);
@@ -80,14 +82,31 @@ public class CategoryAdapter extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
-                categoryArray = mySQLiteHelper.deleteFromCategoryTable(categoryArray.get(position).getCid());
-                notifyDataSetChanged();
+//                UpdateDeleteDialog cdd = new UpdateDeleteDialog(mContext,"确定要删除本分类吗？", categoryArray.get(position).getCid());
+//
+//                cdd.show();
+               showDialog(position);
             }
         });
         return convertView;
     }
+    private void showDialog(int position) {
+        new AlertDialog.Builder(mContext)
+                .setMessage("确定要删除这个分类吗")
+                .setNegativeButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(mContext, null, null, 1);
+                        categoryArray = mySQLiteHelper.deleteFromCategoryTable(categoryArray.get(position).getCid());
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext, "成功删除。",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setPositiveButton("否", null)
+                .show();
 
+    }
 
 
     public void readAllFromCategoryTable() {

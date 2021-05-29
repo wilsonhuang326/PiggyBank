@@ -46,7 +46,20 @@ public class MonthlyTransAdapter extends BaseAdapter {
         adapter = new TransactionAdapter(convertView.getContext(),dateArray.get(position));
         mListView.setAdapter(adapter);
         TextView mTextView = (TextView)convertView.findViewById(R.id.items_monthlytrans_date);
+        TextView mExpense = (TextView)convertView.findViewById(R.id.items_monthlytrans_expense);
+        TextView mIncome = (TextView)convertView.findViewById(R.id.items_monthlytrans_income);
+        TextView mTotal = (TextView)convertView.findViewById(R.id.items_monthlytrans_total);
+
         mTextView.setText(dateArray.get(position));
+       double expenseTotal= adapter.getExpenseTotal();
+        double incomeTotal= adapter.getIncomeTotal();
+        double total= incomeTotal-expenseTotal;
+
+        mExpense.setText(String.valueOf(expenseTotal));
+        mIncome.setText(String.valueOf(incomeTotal));
+
+        mTotal.setText(String.valueOf(total));
+
         fixListViewHeight(mListView);
         return convertView;
     }
